@@ -1,0 +1,121 @@
+.navbarComponent {
+    display: flex;
+    font-size: $fontsizeNavbar;
+    padding: 100;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 20px auto;
+    min-width: 1200px;
+    width: 100%;
+    transition:
+        color 0.5s ease 1s,
+        transform 0.8s ease-in-out;
+
+    @include tablet {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    .navbar_logo img {
+        width: 55px;
+        margin-left: 300px;
+
+        @include tablet {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            margin-left: 0;
+        }
+    }
+
+    .navbar_list {
+        display: flex;
+        margin-right: 300px;
+
+        @include tablet {
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            margin-right: 0;
+        }
+
+        @include mobile {
+            font-size: 12px;
+        }
+    }
+
+    .navbar_list li {
+        counter-increment: a;
+
+        @include tablet {
+            margin: 40px 0;
+        }
+    }
+
+    .navbar_list li a {
+        position: relative;
+        display: inline-block;
+        margin: 0 20px;
+        font-family: $fontRobotoMono;
+        font-weight: 500;
+        color: $white;
+        letter-spacing: -1px;
+        text-decoration: none;
+        transition: color 0.5s 0.5s;
+    }
+
+    .navbar_list li a::before {
+        content: '0' counter(a);
+        position: absolute;
+        top: -100%;
+        right: 0;
+        font-weight: 300;
+        font-size: $fontsizeNavbar - 5px;
+    }
+
+    @include tablet {
+        flex-direction: column;
+    }
+}
+
+.navbarComponent.navbar_active {
+    @include tablet {
+        opacity: 1;
+        display: flex;
+        transform: translateX(0);
+        height: 100vh;
+        width: 100%;
+        color: $white;
+        background-color: $darkLight;
+        position: fixed;
+        z-index: 998;
+        flex-direction: column;
+        margin: 0;
+        min-width: 0;
+    }
+}
+
+.navbar_burgerWrapper {
+    padding: 20px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+
+    .navbar_icon {
+        display: none;
+
+        @include tablet {
+            width: 50px;
+            display: block;
+        }
+    }
+}

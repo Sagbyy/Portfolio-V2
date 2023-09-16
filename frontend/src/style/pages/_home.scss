@@ -1,0 +1,116 @@
+.homePage {
+    background-image: url("public/HomeBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 120vh;
+
+    background-color: $blueBg;
+
+    .container {
+        @include container;
+
+
+        .home_main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+
+            & h1 {
+                font-family: $fontPoppins;
+                font-weight: 600;
+                font-size: 160px;
+                color: $white;
+
+                @include tablet {
+                    font-size: 120px;
+                }
+
+                @include mobile {
+                    font-size: 60px;
+                }
+            }
+
+            & h1::before {
+                content: '';
+                width: 30%;
+                display: block;
+                height: 5px;
+                top: -5%;
+                right: -10px;
+                position: absolute;
+                background: $yellow;
+                border-radius: 10px;
+
+            }
+
+            & p {
+                text-transform: uppercase;
+                color: $white;
+                font-size: 36px;
+                font-family: $fontRobotoMono;
+
+                @include tablet {
+                    font-size: 25px;
+                }
+                
+                @include mobile {
+                    font-size: 15px;
+                }
+            }
+
+            & p::after {
+                content: '';
+                width: 30%;
+                display: block;
+                height: 5px;
+                bottom: -15%;
+                left: -10px;
+                position: absolute;
+                background: $yellow;
+                border-radius: 10px;
+            }
+        }
+
+
+        .home_media {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 100px;
+            bottom: 150px;
+
+            &::after {
+                content: '';
+                width: 2px;
+                height: 140px;
+                bottom: -150px;
+                left: 45%;
+                position: absolute;
+
+                background: $white;
+            }
+
+            @include tablet {
+                left: 20px;
+            }
+
+            @include mobile {
+                display: none;
+            }
+        }
+
+        .home_mouseIcon {
+            position: absolute;
+            bottom:0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            & img {
+                width: 24px;
+            }
+        }
+    }
+}

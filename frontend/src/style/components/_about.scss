@@ -1,0 +1,107 @@
+.about_container {
+    height: auto;
+    background-image: url("public/bgGlowAbout.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    & .about_title {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: $fontKanit;
+        padding: 60px 0;
+
+        & .about_bigTitle {
+            @include bigTille;
+        }
+
+        & .about_littleTitle {
+            @include littleTille;
+        }
+    }
+
+    & .about_mainContent {
+        @include container;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        font-family: $fontKanit;
+
+        & .about_sectionInfo {
+            height: auto;
+            width: 900px;
+            background-color: $darkBlack;
+            padding: 130px;
+
+            @include tablet {
+                width: 50%;
+                padding: 70px;
+                margin-right: 75px;
+                position: absolute;
+            }
+
+            & h3 {
+                color: $white;
+                font-size: 42px;
+                font-weight: 500;
+
+                @include tablet {
+                    font-size: 30px;
+                }
+            }
+
+            & .about_location {
+                color: $yellow;
+                font-size: 26px;
+                margin: 20px 0;
+                font-weight: 300;
+
+                @include tablet {
+                    font-size: 20px;
+                }
+
+                & img {
+                    width: 25px;
+                    margin-right: 10px;
+                    
+                    @include tablet {
+                        width: 20px;
+                    }
+                }
+            } 
+
+            & p {
+                font-weight: 300;
+                font-size: 22px;
+                color: #f1f1f1;
+                line-height: 35px;
+
+                @include tablet {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        & .about_image {
+            width: 360px;
+
+            @include tablet {
+                width: 70%;
+            }
+
+            & img {
+                width: 660px;
+                margin-left: 25px;
+
+                @include tablet {
+                    width: 90%;
+                    margin-left: 75px;
+                }
+            }
+        }
+    }
+}
