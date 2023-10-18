@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const stuffRoutes = require("./routes/stuff");
+require("dotenv").config();
 const userRoutes = require("./routes/user");
 const path = require("path");
 const User = require("./models/User");
@@ -11,7 +11,7 @@ const app = express();
 // Connect to MongoDB
 mongoose
     .connect(
-        "mongodb+srv://sagby:salah93.@clustercoursoc.nrex7eu.mongodb.net/portfolio",
+        process.env.MONGO_DB_URI,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,

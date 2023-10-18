@@ -38,7 +38,7 @@ function AdminLogin() {
                         </div>
                     </form>
                     <div className="admin_login_button">
-                        <button className="">Login</button>
+                        <button>Login</button>
                     </div>
                 </div>
                 <p className="admin_login_footer">
