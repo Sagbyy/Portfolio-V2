@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 
 import { useState } from 'react';
-import logoSagby from '../../../public/LogoSagby.png';
-import menuBurger from '../../../public/menuBurger.svg';
+import logoSagby from '../../../assets/LogoSagby.png';
+import menuBurger from '../../../assets/menuBurger.svg';
 import { Link } from 'react-router-dom';
 
 function Navbar() {

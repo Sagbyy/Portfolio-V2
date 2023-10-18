@@ -1,8 +1,8 @@
 import Navbar from '../components/layout/Navbar';
-import About from '../components/homeCOmp/About';
-import logoGithub from '../../public/logoGithub.svg';
-import logoLinkedin from '../../public/logoLinkedin.svg';
-import mouseIcon from '../../public/mouseIcon.svg';
+import About from '../components/homeComp/About';
+import logoGithub from '../../assets/logoGithub.svg';
+import logoLinkedin from '../../assets/logoLinkedin.svg';
+import mouseIcon from '../../assets/mouseIcon.svg';
 
 function Home() {
     return (

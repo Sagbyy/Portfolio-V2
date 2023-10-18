@@ -1,0 +1,111 @@
+.admin_login {
+    background-color: $darkLight;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+
+    .admin_login_form {
+        background-color: $darkBlack;
+        padding: 50px;
+        width: 430px;
+        height: 430px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include mobile {
+            width: 250px;
+        }
+
+        .admin_login_logo {
+            width: 64px;
+            filter: drop-shadow(0 0 32px rgba(255, 255, 255, 0.75));
+            margin: 50px 0 75px 0;
+        }
+
+        /* Style pour les étiquettes flottantes */
+        .admin_login_form_field {
+            color: #fff;
+            width: 100%;
+
+            div {
+                display: flex;
+                align-items: center;
+                border-bottom: solid 1px $gray;
+                transition: border-bottom 0.3s ease-in-out;
+                margin-bottom: 20px;
+
+                &:focus-within {
+                    border-bottom: solid 1px #fff;
+                }
+
+                input {
+                    background-color: transparent;
+                    border: none;
+                    padding: 5px;
+                    width: 100%;
+                    font-family: $fontRobotoMono;
+
+                    &::placeholder {
+                        color: $gray;
+                        transition: color 0.3s ease-in-out;
+                    }
+
+                    &:focus {
+                        outline: none;
+
+                        &::placeholder {
+                            color: #fff;
+                        }
+                    }
+
+                    &::placeholder {
+                        color: $gray;
+                    }
+                }
+
+                label {
+                    img {
+                        width: 30px;
+                        padding: 15px;
+                    }
+                }
+            }
+        }
+
+        .admin_login_button button {
+            width: 85px;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: $yellow;
+            border: none;
+            font-family: $fontRobotoMono;
+            color: $darkBlack;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover {
+                background-color: darken($yellow, 30%);
+            }
+        }
+
+    }
+
+    .admin_login_footer {
+        position: fixed;
+        padding: 15px 0;
+        bottom: 0;
+        left: 0;
+        width: 100%; /* Ajustez la largeur si nécessaire. */
+        text-align: center; /* Pour centrer le texte horizontalement. */
+        font-family: $fontRobotoMono;
+        color: #37373773;
+        font-weight: bold;
+        font-size: 10px;
+    }
+}

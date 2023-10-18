@@ -1,15 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const stuffRoutes = require("./routes/stuff");
+// const stuffRoutes = require("./routes/stuff");
 const userRoutes = require("./routes/user");
 const path = require("path");
+const User = require("./models/User");
+const { userInfo } = require("os");
 
 const app = express();
 
 // Connect to MongoDB
 mongoose
     .connect(
-        "mongodb+srv://sagby:salah93.@clustercoursoc.nrex7eu.mongodb.net/?retryWrites=true&w=majority",
+        "mongodb+srv://sagby:salah93.@clustercoursoc.nrex7eu.mongodb.net/portfolio",
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -34,9 +36,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/api/stuff", stuffRoutes);
-app.use("/api/auth", userRoutes);
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/api/user", userRoutes);
 
+
+// app.use("/api/stuff", stuffRoutes);
+// app.use("/api/auth", userRoutes);
+// app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
