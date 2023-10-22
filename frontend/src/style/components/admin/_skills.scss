@@ -1,0 +1,23 @@
+.skills_page {
+    @include container;
+
+    .skills_title {
+        margin: 50px auto;
+        text-align: center;
+        @include admin_title;
+    }
+
+    .skills_choose_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        label {
+            text-align: left;
+        }
+        
+        select {
+            width: 100px;
+        }
+    }
+}

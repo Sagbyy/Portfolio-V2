@@ -3,8 +3,11 @@
 @import 'utils/variable';
 @import 'utils/mixin';
 
-@import 'components/navbar';
-@import 'components/about';
+@import 'components/layout/navbar';
+@import 'components/home/about';
+@import 'components/admin/sidebar';
+@import 'components/admin/skills';
 
 @import 'pages/home';
 @import 'pages/admin_login';
+@import 'pages/dashboard';

@@ -1,6 +1,6 @@
 .about_container {
     height: auto;
-    background-image: url("public/bgGlowAbout.png");
+    background-image: url("assets/bgGlowAbout.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -23,7 +23,6 @@
     }
 
     & .about_mainContent {
-        @include container;
 
         display: flex;
         justify-content: center;
@@ -31,9 +30,14 @@
         position: relative;
         font-family: $fontKanit;
 
+        @include mobile {
+            display: block;
+            width: 100%;
+        }
+
         & .about_sectionInfo {
             height: auto;
-            width: 900px;
+            width: 580px;
             background-color: $darkBlack;
             padding: 130px;
 
@@ -44,9 +48,15 @@
                 position: absolute;
             }
 
+            @include mobile {
+                position: relative;
+                width: auto;
+                margin: 0;
+            }
+
             & h3 {
                 color: $white;
-                font-size: 42px;
+                font-size: 38px;
                 font-weight: 500;
 
                 @include tablet {
@@ -56,7 +66,7 @@
 
             & .about_location {
                 color: $yellow;
-                font-size: 26px;
+                font-size: 24px;
                 margin: 20px 0;
                 font-weight: 300;
 
@@ -65,7 +75,7 @@
                 }
 
                 & img {
-                    width: 25px;
+                    width: 22px;
                     margin-right: 10px;
                     
                     @include tablet {
@@ -76,7 +86,7 @@
 
             & p {
                 font-weight: 300;
-                font-size: 22px;
+                font-size: 20px;
                 color: #f1f1f1;
                 line-height: 35px;
 
@@ -94,12 +104,16 @@
             }
 
             & img {
-                width: 660px;
+                width: 520px;
                 margin-left: 25px;
 
                 @include tablet {
                     width: 90%;
                     margin-left: 75px;
+                }
+
+                @include mobile {
+                    display: none;
                 }
             }
         }

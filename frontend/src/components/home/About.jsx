@@ -1,5 +1,5 @@
-import aboutBg from '../../../assets/aboutBg.png';
-import mapSvg from '../../../assets/mapIcon.svg';
+import aboutBg from '../../../assets/images/aboutBg.png';
+import mapSvg from '../../../assets/images/mapIcon.svg';
 
 function About() {
     return (

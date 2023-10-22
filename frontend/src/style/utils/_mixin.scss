@@ -55,8 +55,48 @@
 }
 
 @mixin container {
-    max-width: 1250px; 
-    margin: 0 auto; 
-    padding: 20px; 
-    box-sizing: border-box; 
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@mixin illuminated_logo {
+    width: 64px;
+    filter: drop-shadow(0 0 32px rgba(255, 255, 255, 0.75));
+    margin: 50px 0 75px 0;
+}
+
+@mixin admin_title {
+    font-family: $fontPoppins;
+    font-weight: 600;
+    font-size: 100px;
+    color: $yellow;
+    width: 400px;
+    text-transform: uppercase;
+    position: relative;
+
+    &::before {
+        content: '';
+        width: 30%;
+        display: block;
+        height: 5px;
+        top: -5%;
+        right: -10px;
+        position: absolute;
+        background: $white;
+        border-radius: 10px;
+    }
+
+    &::after {
+        content: '';
+        width: 30%;
+        display: block;
+        height: 5px;
+        bottom: -15%;
+        left: -10px;
+        position: absolute;
+        background: $white;
+        border-radius: 10px;
+    }
 }

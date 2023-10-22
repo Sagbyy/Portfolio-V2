@@ -22,9 +22,7 @@
         }
 
         .admin_login_logo {
-            width: 64px;
-            filter: drop-shadow(0 0 32px rgba(255, 255, 255, 0.75));
-            margin: 50px 0 75px 0;
+            @include illuminated_logo;
         }
 
         .admin_login_form_field {
@@ -48,6 +46,7 @@
                     padding: 5px;
                     width: 100%;
                     font-family: $fontRobotoMono;
+                    color: #fff;
 
                     &::placeholder {
                         color: $gray;
@@ -91,6 +90,14 @@
             &:hover {
                 background-color: darken($yellow, 30%);
             }
+        }
+
+        .admin_login_error {
+            color: $errorRed;
+            margin-top: 20px;
+            font-family: $fontRobotoMono;
+            font-size: 13px;
+            display: none;
         }
 
     }
