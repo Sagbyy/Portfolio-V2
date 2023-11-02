@@ -6,7 +6,11 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
-    left: 0;
+    z-index: 999;
+
+    @include desktop {
+        left: 0 !important;
+    }
 
     img {
         @include illuminated_logo;

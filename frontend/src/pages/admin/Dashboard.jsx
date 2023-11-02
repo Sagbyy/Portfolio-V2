@@ -10,13 +10,12 @@ export default function Dashboard() {
 
     return (
         <>
-            {isLogin == false ? (
+            {!isLogin ? (
                 <div className="dashboard_page">
                     <Sidebar section={section} setSection={setSection} />
                     <div className="dashboard_main">
                         {section === 'skills' && <Skills />}
                         {section === 'projects' && <Projects />}
-                        <h1>Main</h1>
                     </div>
                 </div>
             ) : (

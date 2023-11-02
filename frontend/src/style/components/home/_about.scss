@@ -1,6 +1,6 @@
 .about_container {
     height: auto;
-    background-image: url("assets/bgGlowAbout.png");
+    background-image: url("../../../../assets/images/bgGlowAbout.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -37,9 +37,9 @@
 
         & .about_sectionInfo {
             height: auto;
-            width: 580px;
+            width: 500px;
             background-color: $darkBlack;
-            padding: 130px;
+            padding: 90px;
 
             @include tablet {
                 width: 50%;
@@ -56,7 +56,7 @@
 
             & h3 {
                 color: $white;
-                font-size: 38px;
+                font-size: 30px;
                 font-weight: 500;
 
                 @include tablet {
@@ -66,7 +66,7 @@
 
             & .about_location {
                 color: $yellow;
-                font-size: 24px;
+                font-size: 20px;
                 margin: 20px 0;
                 font-weight: 300;
 
@@ -86,7 +86,7 @@
 
             & p {
                 font-weight: 300;
-                font-size: 20px;
+                font-size: 18px;
                 color: #f1f1f1;
                 line-height: 35px;
 
@@ -104,7 +104,7 @@
             }
 
             & img {
-                width: 520px;
+                width: 470px;
                 margin-left: 25px;
 
                 @include tablet {

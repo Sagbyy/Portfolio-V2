@@ -4,9 +4,12 @@
     flex-direction: row;
 
     .dashboard_main {
-        height: 8000px;
         margin-left: 300px;
         color: #fff;
         flex: 1;
+
+        @include tablet {
+            margin-left: 0;
+        }
     }
 }

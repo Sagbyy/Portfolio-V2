@@ -1,0 +1,84 @@
+.projects_page {
+    background-color: $darkLight;
+    height: 100vh;
+
+    .projects_title {
+        margin: 50px auto 75px auto;
+        text-align: center;
+
+        @include admin_title;
+
+        width: 550px;
+
+        @include tablet {
+            font-size: 80px;
+        }
+    }
+
+    .projects_list {
+        .projects_item {
+            display: flex;
+            align-items: center;
+            margin: auto 9%;
+
+            .projects_item_image {
+                width: 600px;
+                height: 380px;
+                border-radius: 5px;
+                z-index: 11;
+                background-size: cover;
+                object-fit: cover;
+            }
+
+            .projects_item_information {
+                .projects_item_description {
+                    padding: 20px;
+                    z-index: 10;
+                    background-color: $darkBlack;
+                    border-radius: 0 10px 10px 0;
+                    font-family: $fontKanit;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+                    span {
+                        color: $yellow;
+                        font-size: 35px;
+                        font-weight: 500;
+                    }
+
+                    h3 {
+                        display: inline-block;
+                        margin-left: 25px;
+                        font-size: 30px;
+                    }
+
+                    p {
+                        margin: 20px auto;
+                        font-weight: 300;
+                        line-height: 24px;
+                        overflow: hidden;
+                        white-space: normal;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                    }
+                }
+
+                .projects_item_skills {
+                    margin: 20px auto;
+
+                    ul {
+                        display: flex;
+
+                        li {
+                            margin: auto 10px;
+                            font-family: $fontRobotoMono;
+                            font-weight: 200;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

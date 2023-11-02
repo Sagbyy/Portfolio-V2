@@ -4,9 +4,14 @@
 @import 'utils/mixin';
 
 @import 'components/layout/navbar';
+@import 'components/layout/button_nav';
+
 @import 'components/home/about';
+@import 'components/home/skills';
+
 @import 'components/admin/sidebar';
 @import 'components/admin/skills';
+@import 'components/admin/projects';
 
 @import 'pages/home';
 @import 'pages/admin_login';

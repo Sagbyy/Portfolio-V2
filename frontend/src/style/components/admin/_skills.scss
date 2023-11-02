@@ -1,10 +1,16 @@
 .skills_page {
     @include container;
+    background-color: $darkLight;
+    min-height: 100vh;
 
     .skills_title {
-        margin: 50px auto;
+        margin: 50px auto 75px auto;
         text-align: center;
         @include admin_title;
+
+        @include tablet {
+            font-size: 80px;
+        }
     }
 
     .skills_choose_section {
@@ -12,12 +18,186 @@
         flex-direction: column;
         align-items: center;
 
-        label {
-            text-align: left;
+        .skills_select {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                text-align: left;
+                font-family: $fontRobotoMono;
+                margin-bottom: 25px;
+            }
+
+            select {
+                width: 260px;
+                background: $darkBlack;
+                color: white;
+                padding: 15px;
+                border: none;
+                font-family: $fontPoppins;
+                font-size: 15px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
         }
-        
-        select {
-            width: 100px;
+
+        .skills_informations {
+            display: flex;
+            margin: 70px auto;
+            align-items: last baseline;
+
+            @include tablet {
+                flex-direction: column;
+                margin: 20px auto;
+            }
+
+            .skills_input {
+                display: flex;
+                flex-direction: column;
+                margin: 0 50px;
+
+                @include tablet {
+                    margin: 15px 50px;
+                }
+
+                input {
+                    width: 175px;
+                    height: 25px;
+                    padding: 10px;
+                    background: $darkBlack;
+                    color: white;
+                    border: none;
+                    display: flex;
+                    align-items: center;
+                    color: #757575;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                label {
+                    text-align: left;
+                    font-family: $fontPoppins;
+                    margin-bottom: 10px;
+                    font-size: 12px;
+                }
+            }
+
+            button {
+                width: 175px;
+                padding: 10px;
+                height: 45px;
+                background-color: $yellow;
+                border: none;
+                color: $darkBlack;
+                font-family: Poppins;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 15px;
+                transition: background-color 0.3s ease-in;
+                cursor: pointer;
+                align-self: flex-end;
+                margin: 0 50px;
+
+                &:hover {
+                    background-color: darken($yellow, 30%);
+                }
+
+                @include tablet {
+                    margin: 15px 50px;
+                    align-self: center;
+                }
+            }
+        }
+    }
+
+    .skills_items_section {
+        .skills_items_title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 20px;
+
+            p {
+                color: #fff;
+                font-family: $fontRobotoMono;
+                font-size: 15px;
+                letter-spacing: -1px;
+            }
+        }
+
+        .skills_items {
+            overflow: scroll;
+            overflow-x: hidden;
+            scrollbar-color: #717171;
+            height: 300px;
+            border-top: 2px solid #1a1d1f;
+            border-bottom: 2px solid #1a1d1f;
+            padding: 0 20px;
+            margin: 10px auto;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: rgba(26, 29, 31, 0.5);
+                border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #717171;
+                border: 2px solid rgb(26, 29, 31);
+                border-radius: 10px;
+                width: 4px;
+                transition: background-color 0.5s ease-in;
+                
+                &:hover {
+                    background-color: darken(#717171, 10%);
+                }
+            }
+
+            &::-webkit-scrollbar-track {
+                margin-block: 10px;
+            }
+
+            ul {
+                .skill_item {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 30px 0;
+
+                    &:not(:first-child) {
+                        border-top: 1px solid rgba(26, 29, 31, 0.5);
+                    }
+
+                    .skill_item_logo {
+                        width: 25px;
+                    }
+
+                    p {
+                        color: #fff;
+                        font-family: $fontPoppins;
+                        font-size: 16px;
+                        font-weight: 500;
+                        width: 50px;
+                    }
+
+                    .skill_item_section {
+                        text-transform: capitalize;
+                    }
+
+                    .skill_item_delete {
+                        cursor: pointer;
+                    }
+                }
+            }
         }
     }
 }

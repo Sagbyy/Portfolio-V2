@@ -5,6 +5,8 @@ import logoSagby from '../../../assets/images/LogoSagby.png';
 import menuBurger from '../../../assets/images/menuBurger.svg';
 import { Link } from 'react-router-dom';
 
+// TODO Change the animation of navbar
+
 function Navbar() {
     const [showNav, setShowNav] = useState(false);
 
