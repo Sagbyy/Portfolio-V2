@@ -16,6 +16,7 @@ exports.createProject = (req, res, next) => {
         image: `${req.protocol}://${req.get("host")}/images/${
             req.file.filename
         }`,
+        skills: JSON.parse(req.body.skills),
     });
 
     project

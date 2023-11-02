@@ -8,9 +8,10 @@ import { useEffect, useState } from 'react';
 ModalProject.propTypes = {
     closeModal: PropsTypes.func.isRequired,
     projectObject: PropsTypes.object,
+    fetchProjects: PropsTypes.func.isRequired,
 };
 
-export default function ModalProject({ closeModal, projectObject }) {
+export default function ModalProject({ closeModal, projectObject, fetchProjects }) {
     const [skills, setSkills] = useState([]);
     const [skillsSelected, setSkillsSelected] = useState([]);
     const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ export default function ModalProject({ closeModal, projectObject }) {
             .catch(() => {
                 console.log('Error');
             });
-    });
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -47,11 +48,13 @@ export default function ModalProject({ closeModal, projectObject }) {
         // Check if the skill is already selected
         if (!skillsSelected.includes(selectedSkillName)) {
             setSkillsSelected([...skillsSelected, selectedSkillName]);
+            successToast('Skill added !');
         }
     };
 
     const deleteSkill = (skill) => {
         setSkillsSelected(skillsSelected.filter((item) => item !== skill));
+        errorToast('Skill deleted !');
     };
 
     const createProject = (e) => {
@@ -65,19 +68,21 @@ export default function ModalProject({ closeModal, projectObject }) {
             'description',
             document.getElementById('description').value,
         );
-        formData.append('skills', skillsSelected);
+        formData.append('skills', JSON.stringify(skillsSelected));
 
         fetch('http://localhost:3000/api/project/create', {
             method: 'POST',
             body: formData,
         })
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     successToast('Project created !');
+                    fetchProjects();
                     closeModal();
                 } else {
                     errorToast(`Error, you have not fill the fields !`);
                 }
+                console.log(response.status);
             })
             .catch((error) => {
                 errorToast(`Error !`);
@@ -119,7 +124,7 @@ export default function ModalProject({ closeModal, projectObject }) {
                         </div>
                     </div>
 
-                    <div className='modal_inputs'>
+                    <div className="modal_inputs">
                         <label htmlFor="link">Link</label>
                         <input
                             type="text"
@@ -130,7 +135,7 @@ export default function ModalProject({ closeModal, projectObject }) {
                         />
                     </div>
 
-                    <div className='modal_inputs'>
+                    <div className="modal_inputs">
                         <label htmlFor="description">Description</label>
                         <textarea
                             name="description"
@@ -141,22 +146,6 @@ export default function ModalProject({ closeModal, projectObject }) {
                     </div>
 
                     <div className="modal_skills">
-                        <label htmlFor="skills">Skills</label>
-                        <select name="skills" id="skills">
-                            {skills.map((skill) => (
-                                <option key={skill._id} value={skill.name}>
-                                    {skill.name}
-                                </option>
-                            ))}
-                        </select>
-                        <span>
-                            <img
-                                onClick={handleSkills}
-                                className="modal_check_button"
-                                src={checkButton}
-                                alt="Check button"
-                            />
-                        </span>
                         <div className="modal_skills_selected">
                             {skillsSelected.map((skill) => (
                                 <span key={skill}>
@@ -170,8 +159,23 @@ export default function ModalProject({ closeModal, projectObject }) {
                                 </span>
                             ))}
                         </div>
+                        <div className="modal_skills_div">
+                            <select name="skills" id="skills">
+                                {skills.map((skill) => (
+                                    <option key={skill._id} value={skill.name}>
+                                        {skill.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <img
+                                onClick={handleSkills}
+                                className="modal_check_button"
+                                src={checkButton}
+                                alt="Check button"
+                            />
+                        </div>
                     </div>
-                    <button type="submit" onClick={createProject}>
+                    <button type="submit" onClick={createProject} className='modal_submit'>
                         Submit
                     </button>
                 </form>

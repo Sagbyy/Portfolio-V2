@@ -8,7 +8,7 @@
     z-index: 1000;
 
     .modal_main {
-        background: $darkLight;
+        background: #000000;
         padding: 60px;
         position: relative;
         color: #fff;
@@ -36,6 +36,7 @@
 
                     input {
                         @include input;
+                        background-color: $darkLight;
                     }
 
                     label {
@@ -46,12 +47,12 @@
 
             .modal_inputs {
                 display: flex;
-                width: 100%;
                 flex-direction: column;
                 margin: 20px;
 
                 input {
                     @include input;
+                    background-color: $darkLight;
                 }
 
                 label {
@@ -61,7 +62,14 @@
                 textarea {
                     @include input;
                     @include scrollbar;
-                    width: 100%;
+                    background-color: $darkLight;
+                    height: 100px;
+                    resize: none;
+                    padding: 10px;
+
+                    &::-webkit-scrollbar-track {
+                        margin-block: 1px;
+                    }
                 }
             }
 
@@ -75,10 +83,57 @@
                 }
 
                 .modal_skills_selected {
+                    width: 50%;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    span {
+                        background-color: $darkLight;
+                        padding: 10px;
+                        margin-right: 10px;
+                        margin-bottom: 10px;
+                        border-radius: 5px;
+                        display: inline-block;
+                        justify-content: center;
+                        align-items: center;
+                        font-family: $fontPoppins;
+                        font-size: 15px;
+                    }
+
                     .modal_skill_trash {
-                        width: 15px;
+                        width: 10px;
+                        margin-left: 8px;
+                        cursor: pointer;
                     }
                 }
+
+                .modal_skills_div {
+                    width: 50%;
+                    display: flex;
+                    justify-content: center;
+
+                    label {
+                        display: inline;
+                    }
+
+                    select {
+                        @include select;
+                        @include scrollbar;
+                        padding: 10px;
+                    }
+
+                    .modal_check_button {
+                        margin-left: 10px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .modal_submit {
+                background-color: $yellow;
+                margin: 30px auto 0 auto;
+                display: block;
+                @include button_submit;
             }
         }
     }

@@ -6,6 +6,7 @@ module.exports = mongoose.model(
         title: { type: String, required: true },
         description: { type: String, required: true },
         image: { type: String, required: true },
-        link: { type: Array, required: true },
+        link: { type: String, required: true },
+        skills: { type: Array, required: true },
     })
 );

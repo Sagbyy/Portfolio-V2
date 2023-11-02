@@ -30,16 +30,8 @@
 
             select {
                 width: 260px;
-                background: $darkBlack;
-                color: white;
                 padding: 15px;
-                border: none;
-                font-family: $fontPoppins;
-                font-size: 15px;
-
-                &:focus {
-                    outline: none;
-                }
+                @include select;
             }
         }
 
@@ -87,25 +79,10 @@
             }
 
             button {
-                width: 175px;
-                padding: 10px;
-                height: 45px;
-                background-color: $yellow;
-                border: none;
-                color: $darkBlack;
-                font-family: Poppins;
-                font-weight: 700;
-                text-transform: uppercase;
-                font-size: 15px;
-                transition: background-color 0.3s ease-in;
-                cursor: pointer;
                 align-self: flex-end;
                 margin: 0 50px;
 
-                &:hover {
-                    background-color: darken($yellow, 30%);
-                }
-
+                @include button_submit;
                 @include tablet {
                     margin: 15px 50px;
                     align-self: center;
@@ -120,6 +97,7 @@
             flex-direction: row;
             justify-content: space-between;
             padding: 0 20px;
+            margin-bottom: 10px;
 
             p {
                 color: #fff;
@@ -130,35 +108,11 @@
         }
 
         .skills_items {
-            overflow: scroll;
-            overflow-x: hidden;
-            padding: 0 20px;
-            margin: 10px auto;
+            height: 300px;
+            border-top: 2px solid #1a1d1f;
+            border-bottom: 2px solid #1a1d1f;
 
-            &::-webkit-scrollbar {
-                width: 8px;
-            }
-
-            &::-webkit-scrollbar-track {
-                background: rgba(26, 29, 31, 0.5);
-                border-radius: 10px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background-color: #717171;
-                border: 2px solid rgb(26, 29, 31);
-                border-radius: 10px;
-                width: 4px;
-                transition: background-color 0.5s ease-in;
-
-                &:hover {
-                    background-color: darken(#717171, 10%);
-                }
-            }
-
-            &::-webkit-scrollbar-track {
-                margin-block: 10px;
-            }
+            @include scrollbar;
 
             ul {
                 position: relative;
@@ -171,7 +125,7 @@
                     transform: translate(-50%, -50%);
                     font-family: $fontRobotoMono;
                 }
-                
+
                 .skill_item {
                     width: 100%;
                     display: flex;

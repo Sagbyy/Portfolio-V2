@@ -125,13 +125,8 @@
 @mixin scrollbar {
     overflow: scroll;
     overflow-x: hidden;
-    scrollbar-color: #717171;
-    height: 300px;
-    border-top: 2px solid #1a1d1f;
-    border-bottom: 2px solid #1a1d1f;
     padding: 0 20px;
-    margin: 10px auto;
-    
+
     &::-webkit-scrollbar {
         width: 8px;
     }
@@ -155,5 +150,37 @@
 
     &::-webkit-scrollbar-track {
         margin-block: 10px;
+    }
+}
+
+@mixin select {
+    background: $darkBlack;
+    color: white;
+    border: none;
+    font-family: $fontPoppins;
+    font-size: 15px;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin button_submit {
+    width: 175px;
+    padding: 10px;
+    height: 45px;
+    background-color: $yellow;
+    border: none;
+    color: $darkBlack;
+    font-family: Poppins;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: background-color 0.3s ease-in;
+    cursor: pointer;
+
+
+    &:hover {
+        background-color: darken($yellow, 30%);
     }
 }
