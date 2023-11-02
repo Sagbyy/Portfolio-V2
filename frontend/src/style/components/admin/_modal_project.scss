@@ -1,0 +1,85 @@
+.modal_component {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modal_main {
+        background: $darkLight;
+        padding: 60px;
+        position: relative;
+        color: #fff;
+        width: 800px;
+
+        .modal_quit {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            cursor: pointer;
+        }
+
+        form {
+            .modal_title_image {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin: auto 20px;
+
+                    input {
+                        @include input;
+                    }
+
+                    label {
+                        @include label;
+                    }
+                }
+            }
+
+            .modal_inputs {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                margin: 20px;
+
+                input {
+                    @include input;
+                }
+
+                label {
+                    @include label;
+                }
+
+                textarea {
+                    @include input;
+                    @include scrollbar;
+                    width: 100%;
+                }
+            }
+
+            .modal_skills {
+                display: flex;
+                align-items: center;
+                margin: auto 20px;
+
+                .modal_check_button {
+                    width: 20px;
+                }
+
+                .modal_skills_selected {
+                    .modal_skill_trash {
+                        width: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

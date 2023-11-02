@@ -98,3 +98,62 @@
         border-radius: 10px;
     }
 }
+
+@mixin input {
+    width: 100%;
+    height: 25px;
+    padding: 10px;
+    background: $darkBlack;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    color: #757575;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin label {
+    text-align: left;
+    font-family: $fontPoppins;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+@mixin scrollbar {
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-color: #717171;
+    height: 300px;
+    border-top: 2px solid #1a1d1f;
+    border-bottom: 2px solid #1a1d1f;
+    padding: 0 20px;
+    margin: 10px auto;
+    
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(26, 29, 31, 0.5);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #717171;
+        border: 2px solid rgb(26, 29, 31);
+        border-radius: 10px;
+        width: 4px;
+        transition: background-color 0.5s ease-in;
+
+        &:hover {
+            background-color: darken(#717171, 10%);
+        }
+    }
+
+    &::-webkit-scrollbar-track {
+        margin-block: 10px;
+    }
+}

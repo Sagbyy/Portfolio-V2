@@ -132,10 +132,6 @@
         .skills_items {
             overflow: scroll;
             overflow-x: hidden;
-            scrollbar-color: #717171;
-            height: 300px;
-            border-top: 2px solid #1a1d1f;
-            border-bottom: 2px solid #1a1d1f;
             padding: 0 20px;
             margin: 10px auto;
 
@@ -154,7 +150,7 @@
                 border-radius: 10px;
                 width: 4px;
                 transition: background-color 0.5s ease-in;
-                
+
                 &:hover {
                     background-color: darken(#717171, 10%);
                 }
@@ -165,6 +161,17 @@
             }
 
             ul {
+                position: relative;
+                height: 100%;
+
+                .skills_error_fetch {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-family: $fontRobotoMono;
+                }
+                
                 .skill_item {
                     width: 100%;
                     display: flex;

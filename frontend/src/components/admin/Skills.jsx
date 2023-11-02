@@ -1,39 +1,32 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
+import { successToast, errorToast } from '../../utils/toast';
 import 'react-toastify/dist/ReactToastify.css';
 import logoDelete from '../../../assets/images/delete.svg';
+import Loader from '../layout/Loader';
 
 export default function Skills() {
-    const successToast = (text) => {
-        toast.success(text, {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            draggable: true,
-            theme: 'dark',
-        });
-    };
 
-    const errorToast = (text) => {
-        toast.error(text, {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            draggable: true,
-            theme: 'dark',
-        });
-    };
+
+    const [loading, setLoading] = useState(false);
+    const [errorFetch, setErrorFetch] = useState(false);
 
     const fetchSkills = () => {
+        setLoading(true);
         fetch('http://localhost:3000/api/skill/all', {
             method: 'GET',
         })
             .then((response) => response.json())
-            .then((data) => setSkills(data));
+            .then((data) => {
+                setSkills(data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                setErrorFetch(true);
+            });
     };
 
     const createSkill = (e) => {
@@ -108,7 +101,6 @@ export default function Skills() {
                                 type="file"
                                 name="image"
                                 id="image"
-                                title="dzqds"
                             />
                         </div>
                         <button type="submit">Submit</button>
@@ -150,6 +142,12 @@ export default function Skills() {
                                         />
                                     </motion.li>
                                 ))}
+                                {loading && <Loader />}
+                                {errorFetch && (
+                                    <p className="skills_error_fetch">
+                                        Error to fetch...
+                                    </p>
+                                )}
                             </AnimatePresence>
                         </ul>
                     </div>

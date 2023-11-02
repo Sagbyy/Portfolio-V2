@@ -56,3 +56,20 @@ exports.getProjects = (req, res, next) => {
         .catch((error) => res.status(400).json({ error }));
 };
 
+exports.modifyProjects = (req, res, next) => {
+    const projectObject = req.file
+        ? {
+              ...JSON.parse(req.body.project),
+              image: `${req.protocol}://${req.get("host")}/images/${
+                  req.file.filename
+              }`,
+          }
+        : { ...req.body };
+
+    Project.updateOne(
+        { _id: req.params.id },
+        { ...projectObject, _id: req.params.id }
+    )
+        .then(() => res.status(200).json({ message: "Project modified !" }))
+        .catch((error) => res.status(400).json({ error }));
+};
