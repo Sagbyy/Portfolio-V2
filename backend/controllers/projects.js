@@ -1,5 +1,7 @@
 const Project = require("../models/Projects");
 const fs = require("fs");
+const sharp = require("sharp");
+const path = require("path");
 
 exports.createProject = (req, res, next) => {
     const projectObject = req.body;
@@ -11,18 +13,37 @@ exports.createProject = (req, res, next) => {
             .json({ error: "Aucun fichier n'a été téléchargé." });
     }
 
-    const project = new Project({
-        ...projectObject,
-        image: `${req.protocol}://${req.get("host")}/images/${
-            req.file.filename
-        }`,
-        skills: JSON.parse(req.body.skills),
-    });
+    const sourcePath = req.file.path;
 
-    project
-        .save()
-        .then(() => res.status(201).json({ message: "Project save !" }))
-        .catch((error) => res.status(400).json({ error }));
+    sharp(sourcePath)
+        .resize(960, 540)
+        .toBuffer()
+        .then((outputBuffer) => {
+            fs.writeFileSync(sourcePath, outputBuffer); // Écrase le fichier source
+            const project = new Project({
+                ...projectObject,
+                image: `${req.protocol}://${req.get("host")}/images/${
+                    req.file.filename
+                }`,
+                skills: JSON.parse(req.body.skills),
+            });
+
+            project
+                .save()
+                .then(() => {
+                    res.status(201).json({ message: "Project saved!" });
+                })
+                .catch((error) => {
+                    console.error(error);
+                    res.status(500).json({
+                        error: "Erreur interne du serveur",
+                    });
+                });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: "Erreur interne du serveur" });
+        });
 };
 
 exports.deleteProject = (req, res, next) => {

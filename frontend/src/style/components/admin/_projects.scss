@@ -24,6 +24,10 @@
     .projects_list {
         .project_item {
             margin-bottom: 50px;
+
+            .project_item_image {
+                width: 130px;
+            }
         }
     }
 }
