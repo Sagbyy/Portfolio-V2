@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ToastContainer } from 'react-toastify';
 import { motion } from 'framer-motion';
+import { errorToast, successToast } from '../../utils/toast';
 import ModalProject from './ModalProject';
 import Loader from '../layout/Loader';
 import logoDelete from '../../../assets/images/delete.svg';
@@ -12,20 +14,37 @@ export default function Projects() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errorFetch, setErrorFetch] = useState(false);
+    const [method, setMethod] = useState('');
+    const [projectObject, setProjectObject] = useState({});
 
     const fetchProjects = () => {
-        console.log('test');
         fetch('http://localhost:3000/api/project/', {
             method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('test2');
                 setProjects(data);
                 setLoading(false);
             })
             .catch(() => {
                 setErrorFetch(true);
+                console.log('Error');
+            });
+    };
+
+    const deleteProject = (id) => {
+        fetch(`http://localhost:3000/api/project/${id}`, {
+            method: 'DELETE',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                successToast('Project deleted with success');
+                fetchProjects();
+            })
+            .catch(() => {
+                setErrorFetch(true);
+                errorToast('Error to delete project');
                 console.log('Error');
             });
     };
@@ -43,12 +62,19 @@ export default function Projects() {
                 <button
                     onClick={(e) => {
                         e.preventDefault();
+                        setMethod('POST');
                         setShowModal(true);
                     }}
                     className="projects_form_submit"
                 >
                     Create a project
                 </button>
+                <div className="project_items_label">
+                    <p>// image</p>
+                    <p>// title</p>
+                    <p>// edit</p>
+                    <p>// delete</p>
+                </div>
                 <div className="projects_list">
                     {loading ? (
                         <Loader />
@@ -70,11 +96,23 @@ export default function Projects() {
                                         {project.title}
                                     </p>
                                     <img
-                                        className="skill_item_delete"
+                                        className="project_item_edit"
+                                        src={logoEdit}
+                                        alt="Edit"
+                                        onClick={() => {
+                                            setShowModal(true);
+                                            setMethod('PUT');
+                                            setProjectObject(project);
+                                        }}
+                                    />
+                                    <img
+                                        className="project_item_delete"
                                         src={logoDelete}
                                         alt="Logo delete button"
+                                        onClick={() =>
+                                            deleteProject(project._id)
+                                        }
                                     />
-                                    <img src={logoEdit} alt="Edit" />
                                 </motion.li>
                             ))}
                         </ul>
@@ -88,6 +126,8 @@ export default function Projects() {
                         <ModalProject
                             closeModal={() => setShowModal(false)}
                             fetchProjects={fetchProjects}
+                            method={method}
+                            projectObject={projectObject}
                         />,
                         document.body,
                     )}

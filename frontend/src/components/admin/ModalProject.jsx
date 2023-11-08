@@ -9,9 +9,15 @@ ModalProject.propTypes = {
     closeModal: PropsTypes.func.isRequired,
     projectObject: PropsTypes.object,
     fetchProjects: PropsTypes.func.isRequired,
+    method: PropsTypes.string,
 };
 
-export default function ModalProject({ closeModal, projectObject, fetchProjects }) {
+export default function ModalProject({
+    closeModal,
+    projectObject,
+    fetchProjects,
+    method,
+}) {
     const [skills, setSkills] = useState([]);
     const [skillsSelected, setSkillsSelected] = useState([]);
     const [formData, setFormData] = useState({
@@ -23,6 +29,20 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
     });
 
     useEffect(() => {
+        if (method === 'POST') {
+            setFormData({
+                title: '',
+                description: '',
+                image: '',
+                link: '',
+                skills: [],
+            });
+        }
+        else {
+            // Si on est en mode PUT alors on set les skills du projet
+            setSkillsSelected(projectObject.skills);
+        }
+
         fetch('http://localhost:3000/api/skill/all', {
             method: 'GET',
         })
@@ -33,7 +53,8 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
             .catch(() => {
                 console.log('Error');
             });
-    }, []);
+        console.log(formData);
+    }, [method, projectObject]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -69,9 +90,10 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
             document.getElementById('description').value,
         );
         formData.append('skills', JSON.stringify(skillsSelected));
+        console.log(skillsSelected);
 
-        fetch('http://localhost:3000/api/project/create', {
-            method: 'POST',
+        fetch('http://localhost:3000/api/project/' + (method === 'PUT' ? projectObject._id : ''), {
+            method: method,
             body: formData,
         })
             .then((response) => {
@@ -79,7 +101,13 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
                     successToast('Project created !');
                     fetchProjects();
                     closeModal();
-                } else {
+                } 
+                else if (response.status === 200) {
+                    successToast('Project updated !');
+                    fetchProjects();
+                    closeModal();
+                }
+                else {
                     errorToast(`Error, you have not fill the fields !`);
                 }
                 console.log(response.status);
@@ -99,7 +127,7 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
                     className="modal_quit"
                     onClick={closeModal}
                 />
-                <form>
+                <form encType='multipart/form-data'>
                     <div className="modal_title_image">
                         <div>
                             <label htmlFor="title">Title</label>
@@ -107,6 +135,7 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
                                 type="text"
                                 name="title"
                                 id="title"
+                                value={formData.title}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -130,6 +159,7 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
                             type="text"
                             name="link"
                             id="link"
+                            value={formData.link}
                             onChange={handleInputChange}
                             required
                         />
@@ -141,6 +171,7 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
                             name="description"
                             onChange={handleInputChange}
                             maxLength={1000}
+                            value={formData.description}
                             id="description"
                         />
                     </div>
@@ -175,7 +206,11 @@ export default function ModalProject({ closeModal, projectObject, fetchProjects 
                             />
                         </div>
                     </div>
-                    <button type="submit" onClick={createProject} className='modal_submit'>
+                    <button
+                        type="submit"
+                        onClick={createProject}
+                        className="modal_submit"
+                    >
                         Submit
                     </button>
                 </form>

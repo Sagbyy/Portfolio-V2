@@ -14,6 +14,7 @@ exports.createProject = (req, res, next) => {
     }
 
     const sourcePath = req.file.path;
+    console.log(sourcePath);
 
     sharp(sourcePath)
         .resize(960, 540)

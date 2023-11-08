@@ -1,6 +1,7 @@
 .projects_page {
     background-color: $darkLight;
     min-height: 100vh;
+    overflow: hidden;
 
     .projects_title {
         margin: 50px auto 75px auto;
@@ -21,12 +22,51 @@
         margin: 50px auto;
     }
 
+    .project_items_label {
+        margin: 0 100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-bottom: 15px;
+        font-family: $fontRobotoMono;
+        font-size: 15px;
+        letter-spacing: -1px;
+    }
+
     .projects_list {
+        height: 100%;
+        border-top: 2px solid #1a1d1f;
+        border-bottom: 2px solid #1a1d1f;
+        margin: 0 100px;
+        @include scrollbar;
+
         .project_item {
-            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 0;
+            
+            .project_item_title {
+                text-align: center;
+                width: 100px;
+            }
+
+            &:not(:first-child) {
+                border-top: 1px solid rgba(26, 29, 31, 0.5);
+            }
 
             .project_item_image {
-                width: 130px;
+                width: 125px;
+            }
+
+            .project_item_edit {
+                width: 15px;
+                cursor: pointer;
+            }
+
+            .project_item_delete {
+                cursor: pointer;
             }
         }
     }
