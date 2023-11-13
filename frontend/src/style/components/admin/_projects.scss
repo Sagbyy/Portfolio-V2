@@ -1,98 +1,102 @@
 .projects_page {
-    background-color: $darkLight;
-    min-height: 100vh;
-    overflow: hidden;
+  background-color: $darkLight;
+  min-height: 100vh;
+  overflow: hidden;
 
-    .projects_title {
-        margin: 50px auto 75px auto;
+  .projects_title {
+    margin: 50px auto 75px auto;
+    text-align: center;
+
+    @include admin_title;
+
+    width: 550px;
+
+    @include tablet {
+      font-size: 50px;
+      width: 350px;
+    }
+  }
+
+  .projects_form_submit {
+    @include button_submit;
+    display: block;
+    margin: 50px auto;
+  }
+
+  .project_items_label {
+    margin: 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    font-family: $fontRobotoMono;
+    font-size: 15px;
+    letter-spacing: -1px;
+
+    @include mobile {
+      width: 75%;
+      margin: 0 50px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .projects_list {
+    height: 500px;
+    border-top: 2px solid #1a1d1f;
+    border-bottom: 2px solid #1a1d1f;
+    margin: 0 100px;
+    position: relative;
+
+    @include mobile {
+      margin: 0 50px;
+    }
+
+    @include scrollbar;
+
+    .projects_message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: $fontRobotoMono;
+    }
+
+    .project_item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 0;
+
+      .project_item_title {
+        color: #fff;
+        font-family: $fontPoppins;
+        font-size: 16px;
+        font-weight: 500;
+        width: 400px;
         text-align: center;
 
-        @include admin_title;
-
-        width: 550px;
-
         @include tablet {
-            font-size: 50px;
-            width: 350px;
+          width: auto;
         }
+      }
+
+      &:not(:first-child) {
+        border-top: 1px solid rgba(26, 29, 31, 0.5);
+      }
+
+      .project_item_image {
+        width: 125px;
+      }
+
+      .project_item_edit {
+        width: 15px;
+        cursor: pointer;
+      }
+
+      .project_item_delete {
+        cursor: pointer;
+      }
     }
-
-    .projects_form_submit {
-        @include button_submit;
-        display: block;
-        margin: 50px auto;
-    }
-
-    .project_items_label {
-        margin: 0 100px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        margin-bottom: 15px;
-        font-family: $fontRobotoMono;
-        font-size: 15px;
-        letter-spacing: -1px;
-
-        @include mobile {
-            width: 75%;
-            margin: 0 50px;
-            margin-bottom: 15px;
-        }
-    }
-
-    .projects_list {
-        height: 500px;
-        border-top: 2px solid #1a1d1f;
-        border-bottom: 2px solid #1a1d1f;
-        margin: 0 100px;
-        position: relative;
-
-        @include mobile {
-            margin: 0 50px;
-        }
-
-        @include scrollbar;
-
-        .projects_message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: $fontRobotoMono;
-        }
-
-        .project_item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 30px 0;
-            
-            .project_item_title {
-                color: #fff;
-                font-family: $fontPoppins;
-                font-size: 16px;
-                font-weight: 500;
-                width: 400px;
-                text-align: center;
-            }
-
-            &:not(:first-child) {
-                border-top: 1px solid rgba(26, 29, 31, 0.5);
-            }
-
-            .project_item_image {
-                width: 125px;
-            }
-
-            .project_item_edit {
-                width: 15px;
-                cursor: pointer;
-            }
-
-            .project_item_delete {
-                cursor: pointer;
-            }
-        }
-    }
+  }
 }

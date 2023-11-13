@@ -23,16 +23,16 @@ export default function Service() {
                         <img src={ideaIcon} alt="Idea Icon" />
                         <hr />
                         <p>
-                            Les prix varient énormément dans la quantité de
-                            travail et la difficulté demandée.
+                            Les commandes prises pensent à être original et
+                            satisfaire le client !
                         </p>
                     </div>
                     <div className="service_item">
                         <img src={cartIcon} alt="Cart Icon" />
                         <hr />
                         <p>
-                            Les prix varient énormément dans la quantité de
-                            travail et la difficulté demandée.
+                            Je vend mes services de developpeur et de designer,
+                            il suffit de me contacter pour prendre une commande.
                         </p>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import logoSagby from '../../../assets/images/LogoSagby.png';
 import menuBurger from '../../../assets/images/menuBurger.svg';
 import { Link } from 'react-router-dom';
+import ButtonNav from './ButtonNav.jsx';
 
 // TODO Change the animation of navbar
 
@@ -38,22 +39,16 @@ function Navbar() {
 
     return (
         <>
-            <div
-                className="navbar_burgerWrapper"
-                onClick={navbarButtonResponsive}
-            >
-                <img
-                    src={menuBurger}
-                    alt="Bouton burger du menu"
-                    className="navbar_icon"
-                />
+            <div onClick={navbarButtonResponsive}>
+                <ButtonNav setShowNav={setShowNav} showNav={showNav} />
             </div>
 
             <div
                 className={
                     (showNav
                         ? 'navbarComponent navbar_active'
-                        : 'navbarComponent') + (navbarColor ? ' navbar_background' : '')
+                        : 'navbarComponent') +
+                    (navbarColor ? ' navbar_background' : '')
                 }
             >
                 <div className="navbar_logo">

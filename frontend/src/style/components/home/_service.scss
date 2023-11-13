@@ -1,51 +1,61 @@
 .service_container {
-    height: auto;
-    margin-bottom: 50px;
+  height: auto;
+  margin-bottom: 50px;
 
-    & .service_title {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: $fontKanit;
-        padding: 60px 0;
+  & .service_title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $fontKanit;
+    padding: 60px 0;
 
-        & .service_bigTitle {
-            @include bigTille;
-        }
-
-        & .service_littleTitle {
-            @include littleTille;
-        }
+    & .service_bigTitle {
+      @include bigTille;
     }
 
-    .service_main {
-        background-color: $darkLight;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 100px 150px;
-
-        .service_item {
-            margin: 0 50px;
-            text-align: center;
-            color: #fff;
-            font-family: $fontPoppins;
-
-            hr {
-                margin: 25px auto;
-                width: 80%;
-            }
-
-            p {
-                line-height: 20px;
-            }
-
-            img {
-                width: 60px;
-                height: 60px;
-                color: #fff;
-            }
-        }
+    & .service_littleTitle {
+      @include littleTille;
     }
+  }
+
+  .service_main {
+    background-color: $darkLight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 150px;
+
+    @include mobile {
+      flex-direction: column;
+      padding: 50px 100px;
+    }
+
+    .service_item {
+      margin: 0 50px;
+      text-align: center;
+      color: #fff;
+      font-family: $fontPoppins;
+      width: 100%;
+
+      @include mobile {
+        margin: 50px 0;
+      }
+
+      hr {
+        margin: 25px auto;
+        width: 80%;
+      }
+
+      p {
+        line-height: 20px;
+      }
+
+      img {
+        width: 60px;
+        height: 60px;
+        color: #fff;
+      }
+    }
+  }
 }
