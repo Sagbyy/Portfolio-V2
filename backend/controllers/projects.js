@@ -48,7 +48,7 @@ exports.createProject = (req, res, next) => {
 };
 
 exports.deleteProject = (req, res, next) => {
-    Project.findOne().then((project) => {
+    Project.findOne({ _id: req.params.id }).then((project) => {
         const filename = project.image.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
             Project.deleteOne({ _id: req.params.id })
@@ -80,19 +80,54 @@ exports.getProjects = (req, res, next) => {
 };
 
 exports.modifyProjects = (req, res, next) => {
-    const projectObject = req.file
-        ? {
-              ...JSON.parse(req.body.project),
-              image: `${req.protocol}://${req.get("host")}/images/${
-                  req.file.filename
-              }`,
-          }
-        : { ...req.body };
+    Project.findById(req.params.id).then((project) => {
+        if (project) {
+            const filename = project.image.split("/images/")[1];
+            console.log(filename);
 
-    Project.updateOne(
-        { _id: req.params.id },
-        { ...projectObject, _id: req.params.id }
-    )
-        .then(() => res.status(200).json({ message: "Project modified !" }))
-        .catch((error) => res.status(400).json({ error }));
+            // Vérifiez si un nouveau fichier est téléchargé
+            if (req.file) {
+                // Supprime l'ancienne image
+                fs.unlink(`images/${filename}`, () => {
+                    const projectObject = {
+                        ...req.body,
+                        image: `${req.protocol}://${req.get("host")}/images/${
+                            req.file.filename
+                        }`,
+                        skills: JSON.parse(req.body.skills),
+                    };
+
+                    Project.updateOne(
+                        { _id: req.params.id },
+                        { ...projectObject, _id: req.params.id }
+                    )
+                        .then(() =>
+                            res
+                                .status(200)
+                                .json({ message: "Projet modifié !" })
+                        )
+                        .catch((error) => res.status(400).json({ error }));
+                });
+            } else {
+                // Aucun nouveau fichier téléchargé, mettez à jour le projet sans modifier l'image
+                console.log("Pas d'image");
+                const projectObject = {
+                    ...req.body,
+                    image: project.image,
+                    skills: JSON.parse(req.body.skills),
+                };
+
+                Project.updateOne(
+                    { _id: req.params.id },
+                    { ...projectObject, _id: req.params.id }
+                )
+                    .then(() =>
+                        res.status(200).json({ message: "Projet modifié !" })
+                    )
+                    .catch((error) => res.status(400).json({ error }));
+            }
+        } else {
+            res.status(404).json({ error: "Projet non trouvé" });
+        }
+    });
 };

@@ -10,11 +10,10 @@ import Loader from '../layout/Loader';
 export default function Skills() {
 
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [errorFetch, setErrorFetch] = useState(false);
 
     const fetchSkills = () => {
-        setLoading(true);
         fetch('http://localhost:3000/api/skill/all', {
             method: 'GET',
         })

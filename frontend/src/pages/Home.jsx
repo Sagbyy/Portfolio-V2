@@ -1,6 +1,8 @@
 import Navbar from '../components/layout/Navbar';
 import About from '../components/home/About';
 import Skills from '../components/home/Skills';
+import Projects from '../components/home/Projects';
+import Service from '../components/home/Service';
 import logoGithub from '../../assets/images/logoGithub.svg';
 import logoLinkedin from '../../assets/images/logoLinkedin.svg';
 import mouseIcon from '../../assets/images/mouseIcon.svg';
@@ -68,6 +70,8 @@ function Home() {
             </div>
             <About />
             <Skills />
+            <Projects />
+            <Service />
             <Navbar />
         </>
     );

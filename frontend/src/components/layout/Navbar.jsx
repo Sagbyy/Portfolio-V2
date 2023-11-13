@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logoSagby from '../../../assets/images/LogoSagby.png';
 import menuBurger from '../../../assets/images/menuBurger.svg';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,28 @@ function Navbar() {
     const navbarButtonResponsive = () => {
         setShowNav(!showNav);
     };
+
+    const [navbarColor, setNavbarColor] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Mettez à jour le style en fonction de la position de défilement
+            const scrollPosition = window.scrollY;
+            if (scrollPosition > 100) {
+                setNavbarColor(true);
+            } else {
+                setNavbarColor(false);
+            }
+        };
+
+        // Ajoutez un écouteur d'événements de défilement lors du montage du composant
+        window.addEventListener('scroll', handleScroll);
+
+        // Nettoyez l'écouteur d'événements lors du démontage du composant
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <>
@@ -29,9 +51,9 @@ function Navbar() {
 
             <div
                 className={
-                    showNav
+                    (showNav
                         ? 'navbarComponent navbar_active'
-                        : 'navbarComponent'
+                        : 'navbarComponent') + (navbarColor ? ' navbar_background' : '')
                 }
             >
                 <div className="navbar_logo">

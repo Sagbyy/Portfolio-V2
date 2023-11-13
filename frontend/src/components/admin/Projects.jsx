@@ -13,6 +13,7 @@ export default function Projects() {
     const [showModal, setShowModal] = useState(false);
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [noProjects, setNoProjects] = useState(false);
     const [errorFetch, setErrorFetch] = useState(false);
     const [method, setMethod] = useState('');
     const [projectObject, setProjectObject] = useState({});
@@ -25,8 +26,12 @@ export default function Projects() {
             .then((data) => {
                 setProjects(data);
                 setLoading(false);
+
+                // Si il n'y a pas de projets alors on affiche un message
+                data.length === 0 ? setNoProjects(true) : setNoProjects(false);
             })
             .catch(() => {
+                setLoading(false);
                 setErrorFetch(true);
                 console.log('Error');
             });
@@ -76,9 +81,7 @@ export default function Projects() {
                     <p>// delete</p>
                 </div>
                 <div className="projects_list">
-                    {loading ? (
-                        <Loader />
-                    ) : (
+                    {
                         <ul>
                             {projects.map((project) => (
                                 <motion.li
@@ -115,11 +118,17 @@ export default function Projects() {
                                     />
                                 </motion.li>
                             ))}
+                            {loading && <Loader />}
+                            {errorFetch && (
+                                <p className="projects_message">
+                                    Error to fetch...
+                                </p>
+                            )}
+                            {noProjects && (
+                                <p className="projects_message">No projects</p>
+                            )}
                         </ul>
-                    )}
-                    {errorFetch && (
-                        <p className="skills_error_fetch">Error to fetch...</p>
-                    )}
+                    }
                 </div>
                 {showModal &&
                     createPortal(

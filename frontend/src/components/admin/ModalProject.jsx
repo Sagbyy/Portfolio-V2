@@ -37,10 +37,10 @@ export default function ModalProject({
                 link: '',
                 skills: [],
             });
-        }
-        else {
+        } else {
             // Si on est en mode PUT alors on set les skills du projet
             setSkillsSelected(projectObject.skills);
+            console.log(skillsSelected);
         }
 
         fetch('http://localhost:3000/api/skill/all', {
@@ -90,24 +90,25 @@ export default function ModalProject({
             document.getElementById('description').value,
         );
         formData.append('skills', JSON.stringify(skillsSelected));
-        console.log(skillsSelected);
 
-        fetch('http://localhost:3000/api/project/' + (method === 'PUT' ? projectObject._id : ''), {
-            method: method,
-            body: formData,
-        })
+        fetch(
+            'http://localhost:3000/api/project/' +
+                (method === 'PUT' ? projectObject._id : ''),
+            {
+                method: method,
+                body: formData,
+            },
+        )
             .then((response) => {
                 if (response.status === 201) {
                     successToast('Project created !');
                     fetchProjects();
                     closeModal();
-                } 
-                else if (response.status === 200) {
+                } else if (response.status === 200) {
                     successToast('Project updated !');
                     fetchProjects();
                     closeModal();
-                }
-                else {
+                } else {
                     errorToast(`Error, you have not fill the fields !`);
                 }
                 console.log(response.status);
@@ -127,7 +128,7 @@ export default function ModalProject({
                     className="modal_quit"
                     onClick={closeModal}
                 />
-                <form encType='multipart/form-data'>
+                <form encType="multipart/form-data">
                     <div className="modal_title_image">
                         <div>
                             <label htmlFor="title">Title</label>

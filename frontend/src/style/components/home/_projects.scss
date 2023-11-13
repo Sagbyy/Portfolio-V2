@@ -1,0 +1,46 @@
+.projects_container {
+    .projects_title {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: $fontKanit;
+        padding: 60px 0;
+        position: relative;
+
+        .projects_bigTitle {
+            @include bigTille;
+        }
+
+        .projects_littleTitle {
+            @include littleTille;
+        }
+    }
+
+    .projects_main {
+        .projects_main_image {
+            display: flex;
+            justify-content: center;
+
+            img {
+                width: 600px;
+                margin-top: -50px;
+            }
+        }
+
+        .projects_list {
+            margin-top: -50px;
+            margin-bottom: 50px;
+
+            .projects_button {
+                display: flex;
+                justify-content: center;
+                margin-top: 50px;
+
+                button {
+                    @include button_submit;
+                }
+            }
+        }
+    }
+}
