@@ -8,6 +8,8 @@ export default function Dashboard() {
     const { isLogin } = useContext(AuthContext);
     const [section, setSection] = useState('skills');
 
+    document.title = "Sagby - Dashboard"
+
     return (
         <>
             {!isLogin ? (

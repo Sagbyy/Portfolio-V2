@@ -6,12 +6,15 @@
 @import 'components/layout/navbar';
 @import 'components/layout/button_nav';
 @import 'components/layout/loader';
+@import 'components/layout/footer';
+@import 'components/layout/loader_page';
 
 @import 'components/home/about';
 @import 'components/home/skills';
 @import 'components/home/projects';
 @import 'components/home/project_card';
 @import 'components/home/service';
+@import 'components/home/contact';
 
 @import 'components/admin/modal_project';
 @import 'components/admin/sidebar';

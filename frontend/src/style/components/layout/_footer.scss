@@ -1,0 +1,17 @@
+footer {
+  background-color: $darkLight;
+  padding: 20px;
+
+  p {
+    text-align: center;
+    color: #f1f1f1;
+    font-family: $fontPoppins;
+    font-size: 12px;
+
+    a {
+      color: #f1f1f1;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  }
+}

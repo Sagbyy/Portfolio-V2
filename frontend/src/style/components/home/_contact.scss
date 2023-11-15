@@ -1,0 +1,20 @@
+.contact_container {
+  height: auto;
+
+  & .contact_title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $fontKanit;
+    padding: 60px 0;
+
+    & .contact_bigTitle {
+      @include bigTille;
+    }
+
+    & .contact_littleTitle {
+      @include littleTille;
+    }
+  }
+}
