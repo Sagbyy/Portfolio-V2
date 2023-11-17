@@ -88,7 +88,6 @@ function Home() {
                     <Service />
                     <Contact />
                     <Footer />
-                    <Navbar />
                 </>
             )}
         </>
