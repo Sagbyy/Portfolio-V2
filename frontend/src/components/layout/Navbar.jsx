@@ -2,20 +2,42 @@
 
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import logoSagby from '../../../assets/images/LogoSagby.png';
-import menuBurger from '../../../assets/images/menuBurger.svg';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import ButtonNav from './ButtonNav.jsx';
+import logoGithub from '../../../assets/images/logoGithub.svg';
+import logoLinkedin from '../../../assets/images/logoLinkedin.svg';
 
 // TODO Change the animation of navbar
 
 function Navbar() {
     const [showNav, setShowNav] = useState(false);
+    const [hoveredItem, setHoveredItem] = useState(null);
+    const [hover, setHover] = useState(false);
     const navbarListRef = useRef();
     const logoSagbyRef = useRef();
 
     const navbarButtonResponsive = () => {
         setShowNav(!showNav);
+
+        const mm = gsap.matchMedia();
+
+        // Only in tablet and mobile size
+        mm.add('(max-width: 1450px)', () => {
+            if (showNav) {
+                gsap.to('.navbarComponent', {
+                    x: '-100%',
+                    duration: 1,
+                    ease: 'power4.inOut',
+                });
+            } else {
+                gsap.to('.navbarComponent', {
+                    x: 0,
+                    ease: 'power2.out',
+                    duration: 1,
+                });
+            }
+        });
     };
 
     const [navbarColor, setNavbarColor] = useState(false);
@@ -62,6 +84,18 @@ function Navbar() {
         };
     }, []);
 
+    const handleOver = (index) => {
+        setHoveredItem(index);
+        setHover(true);
+    };
+
+    const handleLeave = () => {
+        setHoveredItem('');
+        setHover(false);
+    };
+
+    const items = ['home', 'about', 'skills', 'projects', 'service', 'contact'];
+
     return (
         <>
             <div onClick={navbarButtonResponsive}>
@@ -87,37 +121,38 @@ function Navbar() {
                 </div>
 
                 <ul className="navbar_list" ref={navbarListRef}>
-                    <li>
-                        <Link to="/" onClick={navbarButtonResponsive}>
-                            // home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={navbarButtonResponsive}>
-                            // about
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={navbarButtonResponsive}>
-                            // skills
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={navbarButtonResponsive}>
-                            // projects
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={navbarButtonResponsive}>
-                            // service
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={navbarButtonResponsive}>
-                            // contact
-                        </Link>
-                    </li>
+                    {items.map((item, index) => (
+                        <li
+                            key={index}
+                            className={
+                                (index === hoveredItem ? 'hovered' : '') +
+                                (hover && hoveredItem !== index
+                                    ? ' not-hovered'
+                                    : '')
+                            }
+                            onMouseOver={() => handleOver(index)}
+                            onMouseLeave={handleLeave}
+                        >
+                            <a href={'#' + item}>// {item}</a>
+                        </li>
+                    ))}
                 </ul>
+                <div className="navbar_media">
+                    <a
+                        href="https://github.com/Sagbyy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src={logoGithub} alt="Logo Github" />
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/salahe-eddine-bouhdjeur-090aa6225/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src={logoLinkedin} alt="Logo Github" />
+                    </a>
+                </div>
             </div>
         </>
     );

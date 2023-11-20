@@ -3,8 +3,8 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 export default function LoaderPage({ loadingDom, setLoadingDom }) {
-    const logoSagbyRef = useRef();
-    const progressContainerDom = useRef();
+    const logoSagbyRef = useRef(null);
+    const progressContainerDom = useRef(null);
 
     useEffect(() => {
         const fetchDom = async () => {

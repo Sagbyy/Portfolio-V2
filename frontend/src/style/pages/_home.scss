@@ -1,166 +1,121 @@
 body {
-  background-color: $blueBg;
+    background-color: $blueBg;
 
-  .homePage {
-    height: 100vh;
+    .homePage {
+        height: 100vh;
 
-    &::before {
-      content: '';
-      background-image: url("../../assets/images/HomeBackground.png");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      animation: homePage_background 1s ease-in 2s forwards;
-
-      @keyframes homePage_background {
-        0% {
-          opacity: 0;
+        .homePage_background {
+            height: 100vh;
+            width: 100%;
+            background-image: url("../../assets/images/HomeBackground.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
-        100% {
-          opacity: 1;
+
+        .container {
+            @include container;
+
+            .home_main {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+
+                .top_line {
+                    width: 200px;
+                    height: 5px;
+                    background-color: $yellow;
+                    margin-left: -50px;
+                    margin-bottom: 10px;
+                    border-radius: 10px;
+                }
+
+                .bottom_line {
+                    width: 200px;
+                    height: 5px;
+                    background-color: $yellow;
+                    margin-right: -50px;
+                    margin-top: 20px;
+                    border-radius: 10px;
+                    display: block;
+                    margin-left: auto;
+                }
+
+                .home_title {
+                    font-family: $fontPoppins;
+                    font-weight: 600;
+                    font-size: 120px;
+                    color: $white;
+                    text-transform: uppercase;
+
+                    @include tablet {
+                        font-size: 120px;
+                    }
+
+                    @include mobile {
+                        font-size: 60px;
+                    }
+                }
+
+                & p {
+                    text-transform: uppercase;
+                    color: $white;
+                    font-size: 30px;
+                    font-family: $fontRobotoMono;
+
+                    @include tablet {
+                        font-size: 25px;
+                    }
+
+                    @include mobile {
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            .home_media {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                left: 100px;
+                bottom: 150px;
+                justify-content: center;
+                align-items: center;
+
+                .middle_line {
+                    width: 2px;
+                    height: 0;
+                    top: 100px;
+                    position: absolute;
+                    background: $white;
+                }
+
+                @include tablet {
+                    left: 20px;
+                }
+
+                @include mobile {
+                    display: none;
+                }
+            }
+
+            .home_mouseIcon {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                & img {
+                    width: 24px;
+                }
+            }
         }
-      }
     }
-
-    .container {
-      @include container;
-
-      .home_main {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-
-        .home_title {
-          font-family: $fontPoppins;
-          font-weight: 600;
-          font-size: 120px;
-          color: $white;
-          text-transform: uppercase;
-
-          @include tablet {
-            font-size: 120px;
-          }
-
-          @include mobile {
-            font-size: 60px;
-          }
-        }
-
-        .home_title::before {
-          content: '';
-          width: 0;
-          display: block;
-          height: 5px;
-          top: -5%;
-          right: -10px;
-          position: absolute;
-          background: $yellow;
-          border-radius: 10px;
-          animation: animate_h1_before 1s ease-out forwards 1s;
-
-          @keyframes animate_h1_before {
-            0% {
-              width: 0;
-            }
-            100% {
-              width: 30%;
-            }
-          }
-        }
-
-        & p {
-          text-transform: uppercase;
-          color: $white;
-          font-size: 30px;
-          font-family: $fontRobotoMono;
-
-          @include tablet {
-            font-size: 25px;
-          }
-
-          @include mobile {
-            font-size: 15px;
-          }
-        }
-
-        & p::after {
-          content: '';
-          width: 0;
-          display: block;
-          height: 5px;
-          bottom: -15%;
-          left: -10px;
-          position: absolute;
-          background: $yellow;
-          border-radius: 10px;
-
-          animation: animate_p_before 1s ease-out forwards 1s;
-
-          @keyframes animate_p_before {
-            0% {
-              width: 0;
-            }
-            100% {
-              width: 30%;
-            }
-          }
-        }
-      }
-
-      .home_media {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        left: 100px;
-        bottom: 150px;
-
-        &::after {
-          content: '';
-          width: 2px;
-          height: 140px;
-          bottom: -150px;
-          left: 45%;
-          position: absolute;
-          background: $white;
-          animation: animate_media_after 1s ease-out;
-
-          @keyframes animate_media_after {
-            0% {
-              height: 0;
-            }
-            100% {
-              height: 140px;
-            }
-          }
-        }
-
-        @include tablet {
-          left: 20px;
-        }
-
-        @include mobile {
-          display: none;
-        }
-      }
-
-      .home_mouseIcon {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-        & img {
-          width: 24px;
-        }
-      }
-    }
-  }
 }

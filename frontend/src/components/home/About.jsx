@@ -3,7 +3,7 @@ import mapSvg from '../../../assets/images/mapIcon.svg';
 
 function About() {
     return (
-        <div className="about_container">
+        <div className="about_container" id="about">
             <div className="about_title">
                 <h2 className="about_bigTitle">About</h2>
                 <h2 className="about_littleTitle">About</h2>

@@ -41,7 +41,7 @@ export default function Projects() {
     return (
         <>
             <ToastContainer />
-            <div className="projects_container">
+            <div className="projects_container" id="projects">
                 <div className="projects_title">
                     <h2 className="projects_bigTitle">Projects</h2>
                     <h2 className="projects_littleTitle">Projects</h2>

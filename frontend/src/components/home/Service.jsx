@@ -5,7 +5,7 @@ import cartIcon from '../../../assets/images/cart.svg';
 export default function Service() {
     return (
         <>
-            <div className="service_container">
+            <div className="service_container" id="service">
                 <div className="service_title">
                     <h2 className="service_bigTitle">Services</h2>
                     <h2 className="service_littleTitle">Services</h2>
