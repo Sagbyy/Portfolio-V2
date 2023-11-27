@@ -32,7 +32,7 @@ app.use(
 
 app.use("/api/user", userRoutes);
 app.use("/api/skill", skillRoutes);
-app.use("/api/project", projectRoutes)
+app.use("/api/project", projectRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
