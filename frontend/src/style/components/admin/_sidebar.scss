@@ -12,7 +12,7 @@
         left: 0 !important;
     }
 
-    img {
+    .sidebar_logo_sagby {
         @include illuminated_logo;
         margin: 80px 0;
     }
@@ -45,5 +45,11 @@
                 }
             }
         }
+    }
+
+    .sidebar_disconnect {
+        margin: auto 0 30px 0;
+        width: 30px;
+        cursor: pointer;
     }
 }

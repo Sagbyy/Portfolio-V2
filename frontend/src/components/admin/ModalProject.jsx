@@ -97,6 +97,9 @@ export default function ModalProject({
             {
                 method: method,
                 body: formData,
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
             },
         )
             .then((response) => {

@@ -1,0 +1,24 @@
+.notconnected_main {
+    height: 100vh;
+    width: 100vw;
+    background-color: $darkLight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+        width: 80px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        @include bigTille;
+        font-family: $fontPoppins;
+        font-size: 100px;
+    }
+
+    a {
+        margin-top: 60px;
+    }
+}

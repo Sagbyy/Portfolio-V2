@@ -24,6 +24,7 @@
 
         .admin_login_logo {
             @include illuminated_logo;
+            cursor: pointer;
         }
 
         .admin_login_form_field {

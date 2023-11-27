@@ -1,13 +1,13 @@
 import logoSagby from '../../../assets/images/LogoSagby.png';
 import iconLogin from '../../../assets/images/iconLogin.png';
 import iconPassword from '../../../assets/images/iconPassword.png';
-import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 function AdminLogin() {
-    const history = useNavigate(); // Définissez history pour gérer la redirection
     const { setIsLogin } = useContext(AuthContext);
+    const history = useNavigate();
 
     const login = () => {
         fetch('http://localhost:3000/api/user/login', {
@@ -21,21 +21,29 @@ function AdminLogin() {
             }),
         })
             .then((response) => {
-                if (response.status === 200) {
-                    setIsLogin(true);
-                    history('/admin/dashboard');
-                } else {
+                if (response.status == 200) return response.json();
+                else {
                     document.querySelector('.admin_login_error').style.display =
                         'block';
                     document.getElementById('username').value = '';
                     document.getElementById('password').value = '';
                 }
+                console.log(response);
+            })
+            .then((data) => {
+                console.log(data);
+                localStorage.setItem('token', data.token);
+                setIsLogin(true);
+                history('/admin/dashboard');
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     };
 
+    function redirectHomePage() {
+        history("/")
+    }
 
     return (
         <>
@@ -45,6 +53,7 @@ function AdminLogin() {
                         src={logoSagby}
                         alt="Logo Sagby"
                         className="admin_login_logo"
+                        onClick={redirectHomePage}
                     />
                     <form className="admin_login_form_field">
                         <div>

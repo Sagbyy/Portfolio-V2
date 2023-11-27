@@ -8,8 +8,6 @@ import logoDelete from '../../../assets/images/delete.svg';
 import Loader from '../layout/Loader';
 
 export default function Skills() {
-
-
     const [loading, setLoading] = useState(true);
     const [errorFetch, setErrorFetch] = useState(false);
 
@@ -39,6 +37,9 @@ export default function Skills() {
         fetch('http://localhost:3000/api/skill/create', {
             method: 'POST',
             body: formData,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
         })
             .then(() => {
                 successToast('Skill created !');
@@ -59,8 +60,12 @@ export default function Skills() {
     const deleteSkill = (id) => () => {
         fetch('http://localhost:3000/api/skill/' + id, {
             method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
         })
             .then(() => {
+                console.log(id);
                 successToast('Skill deleted !');
                 fetchSkills();
             })
@@ -96,11 +101,7 @@ export default function Skills() {
 
                         <div className="skills_input">
                             <label htmlFor="image">Image</label>
-                            <input
-                                type="file"
-                                name="image"
-                                id="image"
-                            />
+                            <input type="file" name="image" id="image" />
                         </div>
                         <button type="submit">Submit</button>
                     </div>

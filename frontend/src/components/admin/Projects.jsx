@@ -40,6 +40,9 @@ export default function Projects() {
     const deleteProject = (id) => {
         fetch(`http://localhost:3000/api/project/${id}`, {
             method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
         })
             .then((response) => response.json())
             .then((data) => {
