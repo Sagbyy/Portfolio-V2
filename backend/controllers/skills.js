@@ -1,30 +1,35 @@
 const { log } = require("console");
 const Skill = require("../models/Skills");
 const fs = require("fs");
-const path = require("path");
 
 exports.createSkill = (req, res, next) => {
     const skillObject = req.body;
 
-    if (!req.file) {
-        // Vérification si un fichier a été téléchargé
-        return res
-            .status(400)
-            .json({ error: "Aucun fichier n'a été téléchargé." });
+    try {
+        if (!req.file) {
+            // Vérification si un fichier a été téléchargé
+            return res
+                .status(400)
+                .json({ error: "Aucun fichier n'a été téléchargé." });
+        }
+        console.log(req);
+        console.log(req.protocol);
+        console.log(req.get("host"));
+
+        const skill = new Skill({
+            ...skillObject,
+            image: `${req.protocol}://${req.get("host")}/images/${
+                req.file.filename
+            }`,
+        });
+
+        skill
+            .save()
+            .then(() => res.status(201).json({ message: "Skill enregistré !" }))
+            .catch((error) => res.status(400).json({ error }));
+    } catch (error) {
+        res.status(500).json({ error });
     }
-    console.log(req);
-    console.log(req.protocol);
-    console.log(req.get("host"));
-
-    const skill = new Skill({
-        ...skillObject,
-        image: path.join(process.cwd(), "/images/", req.file.filename),
-    });
-
-    skill
-        .save()
-        .then(() => res.status(201).json({ message: "Skill enregistré !" }))
-        .catch((error) => res.status(400).json({ error }));
 };
 
 exports.deleteSkill = (req, res, next) => {
