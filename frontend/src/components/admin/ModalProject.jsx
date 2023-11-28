@@ -92,7 +92,7 @@ export default function ModalProject({
         formData.append('skills', JSON.stringify(skillsSelected));
 
         fetch(
-            'http://localhost:3000/api/project/' +
+            `${import.meta.env.VITE_API_URL}/api/project/` +
                 (method === 'PUT' ? projectObject._id : ''),
             {
                 method: method,
