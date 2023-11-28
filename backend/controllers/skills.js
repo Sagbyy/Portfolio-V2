@@ -1,3 +1,4 @@
+const { log } = require("console");
 const Skill = require("../models/Skills");
 const fs = require("fs");
 
@@ -8,6 +9,9 @@ exports.createSkill = (req, res, next) => {
         // Vérification si un fichier a été téléchargé
         return res.status(400).json({ error: "Aucun fichier n'a été téléchargé." });
     }
+    console.log(req);
+    console.log(req.protocol);
+    console.log(req.get("host"));
 
     const skill = new Skill({
         ...skillObject,

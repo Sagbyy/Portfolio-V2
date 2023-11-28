@@ -43,7 +43,7 @@ export default function ModalProject({
             console.log(skillsSelected);
         }
 
-        fetch('http://localhost:3000/api/skill/all', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/skill/all`, {
             method: 'GET',
         })
             .then((response) => response.json())

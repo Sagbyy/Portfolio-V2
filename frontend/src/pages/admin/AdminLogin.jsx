@@ -10,7 +10,7 @@ function AdminLogin() {
     const history = useNavigate();
 
     const login = () => {
-        fetch('http://localhost:3000/api/user/login', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

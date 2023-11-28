@@ -13,7 +13,7 @@ export default function Projects() {
         const fetchData = async () => {
             try {
                 const response = await fetch(
-                    'http://localhost:3000/api/project/',
+                    `${import.meta.env.VITE_API_URL}/api/project/`,
                     {
                         method: 'GET',
                     },

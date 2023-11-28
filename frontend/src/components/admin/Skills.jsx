@@ -12,7 +12,7 @@ export default function Skills() {
     const [errorFetch, setErrorFetch] = useState(false);
 
     const fetchSkills = () => {
-        fetch('http://localhost:3000/api/skill/all', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/skill/all`, {
             method: 'GET',
         })
             .then((response) => response.json())
@@ -34,7 +34,7 @@ export default function Skills() {
         formData.append('image', document.getElementById('image').files[0]);
         formData.append('section', document.getElementById('section').value);
 
-        fetch('http://localhost:3000/api/skill/create', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/skill/create`, {
             method: 'POST',
             body: formData,
             headers: {
@@ -58,7 +58,7 @@ export default function Skills() {
     }, []);
 
     const deleteSkill = (id) => () => {
-        fetch('http://localhost:3000/api/skill/' + id, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/skill/` + id, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

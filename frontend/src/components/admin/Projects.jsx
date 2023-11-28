@@ -19,7 +19,7 @@ export default function Projects() {
     const [projectObject, setProjectObject] = useState({});
 
     const fetchProjects = () => {
-        fetch('http://localhost:3000/api/project/', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/project/`, {
             method: 'GET',
         })
             .then((response) => response.json())
@@ -38,7 +38,7 @@ export default function Projects() {
     };
 
     const deleteProject = (id) => {
-        fetch(`http://localhost:3000/api/project/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/project/${id}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
