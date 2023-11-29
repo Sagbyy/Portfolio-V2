@@ -1,17 +1,27 @@
-const { log } = require("console");
 const Skill = require("../models/Skills");
 const fs = require("fs");
+const aws = require("aws-sdk");
 
-exports.createSkill = (req, res, next) => {
+exports.createSkill = async (req, res, next) => {
+    if (!req.file) {
+        // Vérification si un fichier a été téléchargé
+        return res
+            .status(400)
+            .json({ error: "Aucun fichier n'a été téléchargé." });
+    }
+
     const skillObject = req.body;
 
     try {
-        if (!req.file) {
-            // Vérification si un fichier a été téléchargé
-            return res
-                .status(400)
-                .json({ error: "Aucun fichier n'a été téléchargé." });
-        }
+        const s3 = new aws.S3();
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: req.file.originalname,
+            Body: req.file.buffer,
+        };
+
+        const s3UploadResult = await s3.upload(params).promise();
+
         console.log(req);
         console.log(req.protocol);
         console.log(req.get("host"));
@@ -19,11 +29,11 @@ exports.createSkill = (req, res, next) => {
         const skill = new Skill({
             ...skillObject,
             image: `${req.protocol}://${req.get("host")}/images/${
-                req.file.filename
+                s3UploadResult.Key
             }`,
         });
 
-        skill
+        await skill
             .save()
             .then(() => res.status(201).json({ message: "Skill enregistré !" }))
             .catch((error) => res.status(400).json({ error }));
