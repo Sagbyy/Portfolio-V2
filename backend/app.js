@@ -30,6 +30,7 @@ app.use(
             "Origin,X-Requested-With,Content,Accept,Content-Type,Authorization",
     })
 );
+app.options("*", cors());
 
 // AWS S3
 aws.config.update({
