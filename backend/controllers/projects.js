@@ -14,9 +14,7 @@ exports.createProject = (req, res, next) => {
             .json({ error: "Aucun fichier n'a été téléchargé." });
     }
 
-    const sourcePath = req.file.path;
-
-    sharp(sourcePath)
+    sharp(req.file.buffer)
         .resize(960, 540)
         .toBuffer()
         .then(async (outputBuffer) => {
@@ -69,7 +67,7 @@ exports.deleteProject = async (req, res, next) => {
         }
 
         // Get the key of image
-        const key = skill.image.split("/").pop();
+        const key = project.image.split("/").pop();
 
         // Create new instance of S3
         const s3 = new aws.S3();
@@ -119,43 +117,51 @@ exports.modifyProjects = (req, res, next) => {
 
             // Vérifiez si un nouveau fichier est téléchargé
             if (req.file) {
-                // Supprime l'ancienne image
-                const s3 = new aws.S3();
+                // Resize image
+                sharp(req.file.buffer)
+                    .resize(960, 540)
+                    .toBuffer()
+                    .then(async (outputBuffer) => {
+                        // Supprime l'ancienne image
+                        const s3 = new aws.S3();
 
-                // Define parameters for S3
-                const s3Params = {
-                    Bucket: process.env.AWS_BUCKET_NAME,
-                    Key: filename,
-                };
+                        // Define parameters for S3
+                        let s3Params = {
+                            Bucket: process.env.AWS_BUCKET_NAME,
+                            Key: filename,
+                        };
 
-                // Delete image from S3
-                s3.deleteObject(s3Params).promise();
+                        // Delete image from S3
+                        s3.deleteObject(s3Params).promise();
 
-                s3Params = {
-                    Bucket: process.env.AWS_BUCKET_NAME,
-                    Key: req.file.originalname,
-                    Body: req.file.buffer,
-                    ACL: "public-read", // Set ACL to make the object public
-                };
+                        s3Params = {
+                            Bucket: process.env.AWS_BUCKET_NAME,
+                            Key: req.file.originalname,
+                            Body: outputBuffer,
+                            ACL: "public-read", // Set ACL to make the object public
+                        };
 
-                // Upload new image
-                const s3Upload = await s3.upload(s3Params).promise();
+                        // Upload new image
+                        const s3Upload = await s3.upload(s3Params).promise();
 
-                // Update the project object
-                const projectObject = {
-                    ...req.body,
-                    image: s3Upload.Location,
-                    skills: JSON.parse(req.body.skills),
-                };
+                        // Update the project object
+                        const projectObject = {
+                            ...req.body,
+                            image: s3Upload.Location,
+                            skills: JSON.parse(req.body.skills),
+                        };
 
-                Project.updateOne(
-                    { _id: req.params.id },
-                    { ...projectObject, _id: req.params.id }
-                )
-                    .then(() =>
-                        res.status(200).json({ message: "Projet modifié !" })
-                    )
-                    .catch((error) => res.status(400).json({ error }));
+                        Project.updateOne(
+                            { _id: req.params.id },
+                            { ...projectObject, _id: req.params.id }
+                        )
+                            .then(() =>
+                                res
+                                    .status(200)
+                                    .json({ message: "Projet modifié !" })
+                            )
+                            .catch((error) => res.status(400).json({ error }));
+                    });
             } else {
                 // Aucun nouveau fichier téléchargé, mettez à jour le projet sans modifier l'image
                 console.log("Pas d'image");
