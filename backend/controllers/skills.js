@@ -1,4 +1,5 @@
 const Skill = require("../models/Skills");
+const { uuid } = require("uuidv4");
 const fs = require("fs");
 const aws = require("aws-sdk");
 
@@ -13,24 +14,28 @@ exports.createSkill = async (req, res, next) => {
     const skillObject = req.body;
 
     try {
+        // Create new instance of S3
         const s3 = new aws.S3();
+
+        // Get the file extension
+        const fileExtension = req.file.originalname.split(".").pop();
+
+        // Define parameters for S3
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,
             Key: req.file.originalname,
             Body: req.file.buffer,
+            ACL: "public-read", // Set ACL to make the object public
+            ContentType: fileExtension == "svg" ? "image/svg+xml" : "image/png",
         };
 
+        // Upload image to S3
         const s3UploadResult = await s3.upload(params).promise();
 
-        console.log(req);
-        console.log(req.protocol);
-        console.log(req.get("host"));
-
+        // Create new skill
         const skill = new Skill({
             ...skillObject,
-            image: `${req.protocol}://${req.get("host")}/images/${
-                s3UploadResult.Key
-            }`,
+            image: s3UploadResult.Location,
         });
 
         await skill
@@ -42,42 +47,40 @@ exports.createSkill = async (req, res, next) => {
     }
 };
 
-exports.deleteSkill = (req, res, next) => {
-    Skill.findOne().then((skill) => {
-        const filename = skill.image.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-            Skill.deleteOne({ _id: req.params.id })
-                .then(() => {
-                    console.log("L'image " + filename + " à été supprimé !");
-                    res.status(200).json({
-                        message: "Objet supprimé !",
-                    });
-                })
-                .catch((error) => res.status(400).json({ error }));
-        });
-    });
-};
+exports.deleteSkill = async (req, res, next) => {
+    try {
+        // Find skill in database by id
+        const skill = await Skill.findById(req.params.id);
 
-exports.deleteAllSkills = (req, res, next) => {
-    Skill.find()
-        .then((skills) => {
-            skills.forEach((skill) => {
-                const filename = skill.image.split("/images/")[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Skill.deleteOne({ _id: skill._id })
-                        .then(() => {
-                            console.log(
-                                "L'image " + filename + " à été supprimé !"
-                            );
-                        })
-                        .catch((error) => res.status(400).json({ error }));
-                });
-            });
-            res.status(200).json({
-                message: "Objets supprimés !",
-            });
-        })
-        .catch((error) => res.status(400).json({ error }));
+        if (!skill) {
+            return res.status(404).json({ error: "Skill not found !" });
+        }
+
+        // Get the key of image
+        const key = skill.image.split("/").pop();
+
+        // Create new instance of S3
+        const s3 = new aws.S3();
+
+        // Define parameters for S3
+        const s3Params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: key,
+        };
+
+        // Delete image from S3
+        s3.deleteObject(s3Params).promise();
+
+        // Delete skill from database
+        await Skill.deleteOne({ _id: req.params.id });
+        console.log("The object " + key + " was deleted !");
+        res.status(200).json({
+            message: "Object deleted !",
+        });
+    } catch (error) {
+        console.log("Unable to delete object: " + error);
+        res.status(500).json({ error });
+    }
 };
 
 exports.getAllSkills = (req, res, next) => {

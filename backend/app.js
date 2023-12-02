@@ -6,7 +6,7 @@ const skillRoutes = require("./routes/skills");
 const projectRoutes = require("./routes/projects");
 const cors = require("cors");
 const path = require("path");
-const aws = require("aws-sdk");
+const aws = require("aws-sdk")
 
 const app = express();
 
@@ -33,10 +33,10 @@ app.use(
 
 // AWS S3
 aws.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-});
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+})
 
 app.use("/api/user", userRoutes);
 app.use("/api/skill", skillRoutes);
