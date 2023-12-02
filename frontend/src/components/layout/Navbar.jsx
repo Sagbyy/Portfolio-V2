@@ -132,6 +132,7 @@ function Navbar() {
                             }
                             onMouseOver={() => handleOver(index)}
                             onMouseLeave={handleLeave}
+                            onClick={navbarButtonResponsive}
                         >
                             <a href={'#' + item}>// {item}</a>
                         </li>
