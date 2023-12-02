@@ -2,12 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.getAllUsers = (req, res, next) => {
-    User.find()
-        .then((data) => res.status(200).json(data))
-        .catch((error) => res.status(404).json({ error }));
-};
-
 exports.register = (req, res) => {
     let { email, password } = req.body;
 
