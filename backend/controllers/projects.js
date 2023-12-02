@@ -2,6 +2,7 @@ const Project = require("../models/Projects");
 const fs = require("fs");
 const sharp = require("sharp");
 const path = require("path");
+const aws = require("aws-sdk");
 
 exports.createProject = (req, res, next) => {
     const projectObject = req.body;
@@ -14,21 +15,33 @@ exports.createProject = (req, res, next) => {
     }
 
     const sourcePath = req.file.path;
-    console.log(sourcePath);
 
     sharp(sourcePath)
         .resize(960, 540)
         .toBuffer()
-        .then((outputBuffer) => {
-            fs.writeFileSync(sourcePath, outputBuffer); // Écrase le fichier source
+        .then(async (outputBuffer) => {
+            // Create new instance of S3
+            const s3 = new aws.S3();
+
+            // Define parameters for S3
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: req.file.originalname,
+                Body: outputBuffer,
+                ACL: "public-read", // Set ACL to make the object public
+            };
+
+            // Upload image to S3
+            const s3UploadResult = await s3.upload(params).promise();
+
+            // Create new project
             const project = new Project({
                 ...projectObject,
-                image: `${req.protocol}://${req.get("host")}/images/${
-                    req.file.filename
-                }`,
+                image: s3UploadResult.Location,
                 skills: JSON.parse(req.body.skills),
             });
 
+            // Upload my project to my database MongoDB
             project
                 .save()
                 .then(() => {
@@ -47,22 +60,41 @@ exports.createProject = (req, res, next) => {
         });
 };
 
-exports.deleteProject = (req, res, next) => {
-    Project.findOne({ _id: req.params.id }).then((project) => {
-        const filename = project.image.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-            Project.deleteOne({ _id: req.params.id })
-                .then(() => {
-                    console.log(
-                        `The project ${req.params.title} has been delete !`
-                    );
-                    res.status(200).json({ message: "Project delete ! " });
-                })
-                .catch((error) => {
-                    res.status(400).json({ error });
-                });
+exports.deleteProject = async (req, res, next) => {
+    try {
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ error: "Project not found !" });
+        }
+
+        // Get the key of image
+        const key = skill.image.split("/").pop();
+
+        // Create new instance of S3
+        const s3 = new aws.S3();
+
+        // Define parameters for S3
+        const s3Params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: key,
+        };
+
+        // Delete image from S3
+        s3.deleteObject(s3Params).promise();
+
+        // Delete project from database MongoDB
+        await Project.deleteOne({ _id: req.params.id });
+
+        console.log("The object " + key + " was deleted !");
+
+        res.status(200).json({
+            message: "Project deleted !",
         });
-    });
+    } catch (error) {
+        console.log("Unable to delete object: " + error);
+        res.status(500).json({ error });
+    }
 };
 
 exports.getOneProject = (req, res, next) => {
@@ -80,34 +112,50 @@ exports.getProjects = (req, res, next) => {
 };
 
 exports.modifyProjects = (req, res, next) => {
-    Project.findById(req.params.id).then((project) => {
+    Project.findById(req.params.id).then(async (project) => {
         if (project) {
-            const filename = project.image.split("/images/")[1];
-            console.log(filename);
+            // Get the key of image
+            const filename = project.image.split("/").pop();
 
             // Vérifiez si un nouveau fichier est téléchargé
             if (req.file) {
                 // Supprime l'ancienne image
-                fs.unlink(`images/${filename}`, () => {
-                    const projectObject = {
-                        ...req.body,
-                        image: `${req.protocol}://${req.get("host")}/images/${
-                            req.file.filename
-                        }`,
-                        skills: JSON.parse(req.body.skills),
-                    };
+                const s3 = new aws.S3();
 
-                    Project.updateOne(
-                        { _id: req.params.id },
-                        { ...projectObject, _id: req.params.id }
+                // Define parameters for S3
+                const s3Params = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: filename,
+                };
+
+                // Delete image from S3
+                s3.deleteObject(s3Params).promise();
+
+                s3Params = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: req.file.originalname,
+                    Body: req.file.buffer,
+                    ACL: "public-read", // Set ACL to make the object public
+                };
+
+                // Upload new image
+                const s3Upload = await s3.upload(s3Params).promise();
+
+                // Update the project object
+                const projectObject = {
+                    ...req.body,
+                    image: s3Upload.Location,
+                    skills: JSON.parse(req.body.skills),
+                };
+
+                Project.updateOne(
+                    { _id: req.params.id },
+                    { ...projectObject, _id: req.params.id }
+                )
+                    .then(() =>
+                        res.status(200).json({ message: "Projet modifié !" })
                     )
-                        .then(() =>
-                            res
-                                .status(200)
-                                .json({ message: "Projet modifié !" })
-                        )
-                        .catch((error) => res.status(400).json({ error }));
-                });
+                    .catch((error) => res.status(400).json({ error }));
             } else {
                 // Aucun nouveau fichier téléchargé, mettez à jour le projet sans modifier l'image
                 console.log("Pas d'image");
