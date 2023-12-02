@@ -146,7 +146,7 @@ function Navbar() {
                         <img src={logoGithub} alt="Logo Github" />
                     </a>
                     <a
-                        href="https://www.linkedin.com/in/salahe-eddine-bouhdjeur-090aa6225/"
+                        href="https://www.linkedin.com/in/salahe-eddine-b-090aa6225/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
