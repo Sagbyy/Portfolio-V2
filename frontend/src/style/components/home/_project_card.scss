@@ -64,7 +64,7 @@
     }
 
     @include mobile {
-      width: 400px;
+      width: 350px;
     }
   }
 
@@ -74,7 +74,7 @@
     }
 
     @include mobile {
-      width: 400px;
+      width: 350px;
     }
 
     .projects_item_description {
@@ -95,7 +95,9 @@
       }
 
       @include mobile {
-        width: 400px;
+        width: 350px;
+        text-align: center;
+        padding-top: 20px;
       }
 
       span {

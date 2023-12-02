@@ -10,6 +10,10 @@
     align-items: center;
     justify-content: center;
 
+    @include mobile {
+        height: auto;
+    }
+
     .skills_title {
         position: relative;
         display: flex;
