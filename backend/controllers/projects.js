@@ -75,7 +75,7 @@ exports.deleteProject = async (req, res, next) => {
         // Define parameters for S3
         const s3Params = {
             Bucket: process.env.AWS_BUCKET_NAME,
-            Key: key,
+            Key: decodeURI(key)
         };
 
         // Delete image from S3
