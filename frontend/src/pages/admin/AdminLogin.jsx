@@ -1,13 +1,33 @@
 import logoSagby from '../../../assets/images/LogoSagby.png';
 import iconLogin from '../../../assets/images/iconLogin.png';
 import iconPassword from '../../../assets/images/iconPassword.png';
-import { useContext } from 'react';
+import LoaderPage from '../../components/layout/LoaderPage';
+import { gsap } from 'gsap';
+import { useContext, useLayoutEffect } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { LoadingContext } from '../../contexts/LoadingProvider';
 
 function AdminLogin() {
     const { setIsLogin } = useContext(AuthContext);
+    const { loadingDom, setLoadingDom } = useContext(LoadingContext);
+
     const history = useNavigate();
+
+    useLayoutEffect(() => {
+        if (!loadingDom) {
+            const TL = gsap.timeline();
+            TL.from('.admin_login_form', {
+                scale: 0,
+                duration: 1,
+                ease: 'power4',
+            });
+
+            setTimeout(() => {
+                TL.play();
+            }, 1500);
+        }
+    }, [loadingDom]);
 
     const login = () => {
         fetch(`${import.meta.env.VITE_API_URL}/api/user/login`, {
@@ -42,55 +62,67 @@ function AdminLogin() {
     };
 
     function redirectHomePage() {
-        history("/")
+        history('/');
     }
 
     return (
         <>
-            <div className="admin_login">
-                <div className="admin_login_form">
-                    <img
-                        src={logoSagby}
-                        alt="Logo Sagby"
-                        className="admin_login_logo"
-                        onClick={redirectHomePage}
-                    />
-                    <form className="admin_login_form_field">
-                        <div>
-                            <label htmlFor="username">
-                                <img src={iconLogin} alt="icon login" />
-                            </label>
-                            <input
-                                type="text"
-                                name="username"
-                                id="username"
-                                placeholder="Username"
+            {loadingDom ? (
+                <LoaderPage
+                    loadingDom={loadingDom}
+                    setLoadingDom={setLoadingDom}
+                />
+            ) : (
+                <>
+                    <div className="admin_login">
+                        <div className="admin_login_form">
+                            <img
+                                src={logoSagby}
+                                alt="Logo Sagby"
+                                className="admin_login_logo"
+                                onClick={redirectHomePage}
                             />
-                        </div>
+                            <form className="admin_login_form_field">
+                                <div>
+                                    <label htmlFor="username">
+                                        <img src={iconLogin} alt="icon login" />
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        id="username"
+                                        placeholder="Username"
+                                    />
+                                </div>
 
-                        <div>
-                            <label htmlFor="password">
-                                <img src={iconPassword} alt="icon login" />
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="Password"
-                            />
+                                <div>
+                                    <label htmlFor="password">
+                                        <img
+                                            src={iconPassword}
+                                            alt="icon login"
+                                        />
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        placeholder="Password"
+                                    />
+                                </div>
+                            </form>
+                            <div className="admin_login_button">
+                                <button onClick={login}>Login</button>
+                            </div>
+                            <p className="admin_login_error">
+                                Name or password are wrong !
+                            </p>
                         </div>
-                    </form>
-                    <div className="admin_login_button">
-                        <button onClick={login}>Login</button>
+                        <p className="admin_login_footer">
+                            get out, you have nothing to do here
+                        </p>
                     </div>
-                    <p className="admin_login_error">
-                        Name or password are wrong !
-                    </p>
-                </div>
-                <p className="admin_login_footer">
-                    get out, you have nothing to do here
-                </p>
-            </div>
+                </>
+            )}
         </>
     );
 }
