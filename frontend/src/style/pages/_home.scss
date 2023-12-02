@@ -7,7 +7,7 @@ body {
         .homePage_background {
             height: 100vh;
             width: 100%;
-            background-image: url("../../assets/images/HomeBackground.png");
+            background-image: url('../../assets/images/HomeBackground.png');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
@@ -96,6 +96,14 @@ body {
                     top: 100px;
                     position: absolute;
                     background: $white;
+                }
+
+                a {
+                    transition: transform 0.3s ease-in-out;
+
+                    &:hover {
+                        transform: translateY(-5px);
+                    }
                 }
 
                 @include tablet {
