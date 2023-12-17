@@ -14,6 +14,7 @@ export default function CardProject({ project, peer }) {
                     src={project.image}
                     alt="example"
                     className="projects_item_image"
+                    loading="lazy"
                 />
                 <div className="projects_item_information">
                     <div className="projects_item_description">
