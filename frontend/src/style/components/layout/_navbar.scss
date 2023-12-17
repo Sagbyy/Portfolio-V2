@@ -30,7 +30,7 @@
     }
 
     &.navbar_background {
-        transition: all 0.3s ease-in-out;
+        transition: padding 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         
         @include desktop {
             background: $blueBg;

@@ -1,20 +1,71 @@
 import { useEffect, useState } from 'react';
+import gsap from 'gsap';
 import SkillsCard from './SkillsCard';
 
 function Skills() {
     const [skills, setSkills] = useState([]);
 
     useEffect(() => {
+        // Fetch skills
         fetch(`${import.meta.env.VITE_API_URL}/api/skill/all`, {
             method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
                 setSkills(data);
+
+                // Wait the fetch to create animation
+                const TL = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: '.skills_main',
+                        start: 'top 60%',
+                    },
+                });
+
+                TL.fromTo(
+                    '.skills_items h3',
+                    {
+                        y: -20,
+                        opacity: 0,
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                    },
+                )
+                    .fromTo(
+                        '.skills_items:nth-child(1) .skills_card',
+                        { scale: 0 },
+                        { scale: 1, stagger: 0.2 },
+                    )
+                    .fromTo(
+                        '.skills_items:nth-child(2) .skills_card',
+                        { scale: 0 },
+                        { scale: 1, stagger: 0.2 },
+                        '<',
+                    );
             })
             .catch((error) => {
                 console.error(error);
             });
+
+        // Animation
+        // Title
+        gsap.fromTo(
+            '.skills_title',
+            {
+                scale: 0,
+            },
+            {
+                scale: 1,
+                duration: 1.5,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: '.skills_bigTitle',
+                    start: 'top 60%',
+                },
+            },
+        );
     }, []);
 
     return (
@@ -29,11 +80,12 @@ function Skills() {
                     {skills.map(
                         (skill) =>
                             skill.section === 'technologies' && (
-                                <SkillsCard
-                                    key={skill._id}
-                                    title={skill.name}
-                                    image={skill.image}
-                                />
+                                <div key={skill._id} className="skills_card">
+                                    <SkillsCard
+                                        title={skill.name}
+                                        image={skill.image}
+                                    />
+                                </div>
                             ),
                     )}
                 </div>
@@ -42,11 +94,12 @@ function Skills() {
                     {skills.map(
                         (skill) =>
                             skill.section === 'tools' && (
-                                <SkillsCard
-                                    key={skill._id}
-                                    title={skill.name}
-                                    image={skill.image}
-                                />
+                                <div key={skill._id} className="skills_card">
+                                    <SkillsCard
+                                        title={skill.name}
+                                        image={skill.image}
+                                    />
+                                </div>
                             ),
                     )}
                 </div>

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { errorToast } from '../../utils/toast';
+import { ToastContainer } from 'react-toastify';
 import ProjectCard from './ProjectCard';
 import projectBg from '../../../assets/images/projects_bg.png';
-import { ToastContainer } from 'react-toastify';
+import gsap from 'gsap';
 
 export default function Projects() {
     const [projects, setProjects] = useState([]);
     const [numberProjects, setNumberProjects] = useState(2);
-    const [displayProjects, setDisplayProjects] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,17 +21,35 @@ export default function Projects() {
                 const data = await response.json();
 
                 setProjects(data);
-                setDisplayProjects(data.slice(0, numberProjects));
             } catch (error) {
                 console.error(error);
             }
         };
 
         fetchData();
+
+        // Animation
+        // Title
+        gsap.fromTo(
+            '.projects_title',
+            {
+                scale: 0,
+            },
+            {
+                scale: 1,
+                duration: 1.5,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: '.projects_bigTitle',
+                    start: 'top 60%',
+                    markers: true,
+                },
+            },
+        );
     }, [numberProjects]);
 
     const showMore = () => {
-        if (numberProjects > projects.length) {
+        if (numberProjects >= projects.length) {
             errorToast('No more projects to show');
             return;
         }
@@ -55,14 +73,16 @@ export default function Projects() {
                     </div>
                     <div className="projects_list">
                         <ul>
-                            {displayProjects.map((project, index) => (
-                                <li key={project._id}>
-                                    <ProjectCard
-                                        project={project}
-                                        peer={index % 2 === 0 ? true : false}
-                                    />
-                                </li>
-                            ))}
+                            {projects
+                                .slice(0, numberProjects)
+                                .map((project, index) => (
+                                    <li key={project._id}>
+                                        <ProjectCard
+                                            project={project}
+                                            peer={index % 2 === 0}
+                                        />
+                                    </li>
+                                ))}
                             <div className="projects_button">
                                 <button onClick={showMore}>Show More</button>
                             </div>
