@@ -38,7 +38,6 @@ export default function Projects() {
             scrollTrigger: {
                 trigger: '.projects_bigTitle',
                 start: 'top 60%',
-                markers: true,
             },
         });
 
@@ -62,7 +61,6 @@ export default function Projects() {
             },
             '-=1',
         );
-        console.log(numberProjects);
     }, []);
 
     const showMore = () => {
