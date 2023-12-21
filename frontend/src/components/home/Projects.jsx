@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { errorToast } from '../../utils/toast';
+import { useState, useEffect, useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 import ProjectCard from './ProjectCard';
 import projectBg from '../../../assets/images/projects_bg.png';
@@ -7,7 +6,10 @@ import gsap from 'gsap';
 
 export default function Projects() {
     const [projects, setProjects] = useState([]);
+    const [buttonText, setButtonText] = useState('Show More'); // [1
+    const [backToTop, setBackToTop] = useState(false); // [1
     const [numberProjects, setNumberProjects] = useState(2);
+    const projects_button = useRef();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,10 +29,20 @@ export default function Projects() {
         };
 
         fetchData();
+    }, []);
 
+    useEffect(() => {
         // Animation
         // Title
-        gsap.fromTo(
+        const TL = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.projects_bigTitle',
+                start: 'top 60%',
+                markers: true,
+            },
+        });
+
+        TL.fromTo(
             '.projects_title',
             {
                 scale: 0,
@@ -39,20 +51,34 @@ export default function Projects() {
                 scale: 1,
                 duration: 1.5,
                 ease: 'power4.out',
-                scrollTrigger: {
-                    trigger: '.projects_bigTitle',
-                    start: 'top 60%',
-                },
             },
+        ).fromTo(
+            '.projects_main_image',
+            { opacity: 0 },
+            {
+                opacity: 1,
+                duration: 2.5,
+                ease: 'power4.out',
+            },
+            '-=1',
         );
-    }, [numberProjects]);
+        console.log(numberProjects);
+    }, []);
 
     const showMore = () => {
-        if (numberProjects >= projects.length) {
-            errorToast('No more projects to show');
-            return;
+        if (!backToTop) {
+            setNumberProjects(numberProjects + 2);
+            if (numberProjects === projects.length - 2) {
+                setButtonText('Show Less');
+                setBackToTop(true);
+            }
+        } else {
+            setNumberProjects(numberProjects - 2);
+            if (numberProjects <= 4) {
+                setBackToTop(false);
+                setButtonText('Show More');
+            }
         }
-        setNumberProjects(numberProjects + 2);
     };
 
     return (
@@ -83,7 +109,12 @@ export default function Projects() {
                                     </li>
                                 ))}
                             <div className="projects_button">
-                                <button onClick={showMore}>Show More</button>
+                                <button
+                                    onClick={showMore}
+                                    ref={projects_button}
+                                >
+                                    {buttonText}
+                                </button>
                             </div>
                         </ul>
                     </div>
