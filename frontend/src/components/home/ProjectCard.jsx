@@ -1,5 +1,3 @@
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import projectsLink from '../../../assets/images/projects_link.svg';
 import PropTypes from 'prop-types';
 
@@ -12,13 +10,12 @@ export default function CardProject({ project, peer }) {
     return (
         <>
             <div className={'projects_item' + (peer ? ' peer' : '')}>
-                <LazyLoadImage
+                <img
                     src={project.image}
                     alt="example"
                     className="projects_item_image"
                     width="600px"
                     height="380px"
-                    effect="blur"
                 />
                 <div className="projects_item_information">
                     <div className="projects_item_description">
