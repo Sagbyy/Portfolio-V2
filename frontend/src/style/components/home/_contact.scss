@@ -1,5 +1,6 @@
 .contact_container {
   height: auto;
+  overflow: hidden;
 
   & .contact_title {
     position: relative;
@@ -15,6 +16,67 @@
 
     & .contact_littleTitle {
       @include littleTille;
+    }
+  }
+
+  .contact_main {
+    width: 100%;
+
+    form {
+      width: 80%;
+      margin: 0 auto;
+      font-family: $fontKanit;
+      color: #fff;
+
+      .contact_top {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+        gap: 50px;
+
+        div {
+          display: block;
+          width: 100%;
+
+          input {
+            margin: 10px 0 20px 0;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #2a303d;
+            border-radius: 5px;
+            background-color: #1f2631;
+            font-weight: 300;
+            color: #ffffff;
+          }
+        }
+      }
+
+      .contact_bottom {
+        width: 100%;
+
+        textarea {
+          margin: 10px 0;
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #2a303d;
+          border-radius: 5px;
+          background-color: #1f2631;
+          font-weight: 300;
+          color: #ffffff;
+          height: 150px;
+          font-family: $fontKanit;
+          resize: none;
+        }
+      }
+
+      input[type=submit] {
+        @include button_submit;
+        width: 125px;
+        padding: 5px;
+        height: 35px;
+        margin: 20px 0;
+      }
     }
   }
 }
