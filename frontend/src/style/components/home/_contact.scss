@@ -48,6 +48,11 @@
             background-color: #1f2631;
             font-weight: 300;
             color: #ffffff;
+            font-family: $fontKanit;
+
+            &::placeholder {
+              font-family: $fontKanit;
+            }
           }
         }
       }
