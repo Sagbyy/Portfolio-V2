@@ -13,37 +13,6 @@ function Skills() {
             .then((response) => response.json())
             .then((data) => {
                 setSkills(data);
-
-                // Wait the fetch to create animation
-                const TL = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: '.skills_main',
-                        start: 'top 60%',
-                    },
-                });
-
-                TL.fromTo(
-                    '.skills_items h3',
-                    {
-                        y: -20,
-                        opacity: 0,
-                    },
-                    {
-                        y: 0,
-                        opacity: 1,
-                    },
-                )
-                    .fromTo(
-                        '.skills_items:nth-child(1) .skills_card',
-                        { scale: 0 },
-                        { scale: 1, stagger: 0.2 },
-                    )
-                    .fromTo(
-                        '.skills_items:nth-child(2) .skills_card',
-                        { scale: 0 },
-                        { scale: 1, stagger: 0.2 },
-                        '<',
-                    );
             })
             .catch((error) => {
                 console.error(error);
@@ -66,6 +35,39 @@ function Skills() {
                 },
             },
         );
+
+        setTimeout(() => {
+            // Wait the fetch to create animation
+            const TL = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.skills_main',
+                    start: 'top 60%',
+                },
+            });
+
+            TL.fromTo(
+                '.skills_items h3',
+                {
+                    y: -20,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                },
+            )
+                .fromTo(
+                    '.skills_items:nth-child(1) .skills_card',
+                    { scale: 0 },
+                    { scale: 1, stagger: 0.2 },
+                )
+                .fromTo(
+                    '.skills_items:nth-child(2) .skills_card',
+                    { scale: 0 },
+                    { scale: 1, stagger: 0.2 },
+                    '<',
+                );
+        }, 1500);
     }, []);
 
     return (
