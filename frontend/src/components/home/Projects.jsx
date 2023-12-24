@@ -71,11 +71,9 @@ export default function Projects() {
                 setBackToTop(true);
             }
         } else {
-            setNumberProjects(numberProjects - 2);
-            if (numberProjects <= 4) {
-                setBackToTop(false);
-                setButtonText('Show More');
-            }
+            setNumberProjects(2);
+            setBackToTop(false);
+            setButtonText('Show More');
         }
     };
 
