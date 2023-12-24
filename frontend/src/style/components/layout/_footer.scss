@@ -1,6 +1,8 @@
 footer {
   background-color: $darkLight;
   padding: 20px;
+  position: relative;
+  z-index: 997;
 
   p {
     text-align: center;
