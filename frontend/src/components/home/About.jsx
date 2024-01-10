@@ -141,22 +141,19 @@ function About() {
                         France
                     </p>
                     <p className="about_text">
-                        Salah, 19 ans actuellement en deuxième année de BUT
-                        Informatique à l&apos;IUT de Montreuil.
+                        Salah, 19 years old, currently in my second year of
+                        Computer Science at the IUT in Montreuil.
                         <br />
                         <br />
-                        Je suis intéressé par le monde du développement en
-                        général, j&apos;ai commencer par apprendre le
-                        developpement web avec Javascipt et HTML CSS.
+                        I&apos;m interested in the world of development in
+                        general, I started by learning web development with
+                        Javascipt and HTML CSS.
                         <br />
-                        <br />
-                        Je passe mon temps libre à me perfectionner dans les
-                        langages de programmation en autodidacte.
-                        <br />
-                        Cela depuis 2020 que je m&apos;intéresse à la
-                        programmation, je continuerais à me perfectionner pour
-                        améliorer la qualité de mes services et acquérir le
-                        maximum d&apos;expérience.
+                        <br />I spend my free time perfecting my skills in
+                        programming languages on a self-taught basis. I&apos;ve
+                        been interested in programming since 2020, and I&apos;ll
+                        continue to perfect my skills to improve the quality of
+                        my services and gain as much experience as possible.
                     </p>
                 </div>
             </div>

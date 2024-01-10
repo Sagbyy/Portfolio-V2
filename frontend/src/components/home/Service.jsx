@@ -75,24 +75,24 @@ export default function Service() {
                         <img src={dollarIcon} alt="Dollar Icon" />
                         <hr />
                         <p>
-                            Les prix varient énormément dans la quantité de
-                            travail et la difficulté demandée.
+                            Prices vary enormously according to the amount of
+                            work involved and the difficulty required.
                         </p>
                     </div>
                     <div className="service_item">
                         <img src={ideaIcon} alt="Idea Icon" />
                         <hr />
                         <p>
-                            Les commandes prises pensent à être original et
-                            satisfaire le client !
+                            The orders we take are all about originality and
+                            customer satisfaction!
                         </p>
                     </div>
                     <div className="service_item">
                         <img src={cartIcon} alt="Cart Icon" />
                         <hr />
                         <p>
-                            Je vend mes services de developpeur et de designer,
-                            il suffit de me contacter pour prendre une commande.
+                            I sell my services as a developer and designer, just
+                            contact me to take an order.
                         </p>
                     </div>
                 </div>
