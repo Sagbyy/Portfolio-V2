@@ -8,12 +8,14 @@ import Error from './pages/Error';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from './contexts/AuthProvider';
 import LoadingProvider from './contexts/LoadingProvider.jsx';
+import { Analytics } from '@vercel/analytics/react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <AuthProvider>
             <LoadingProvider>
                 <Router>
+                    <Analytics />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/admin" element={<AdminLogin />} />
