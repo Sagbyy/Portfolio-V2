@@ -1,5 +1,4 @@
 .skills_container {
-    height: 100vh;
     background-image: url('../../assets/images/skills_background.jpg');
     background-repeat: no-repeat;
     background-size: contain;
@@ -38,26 +37,44 @@
         margin: 0 10%;
         border-radius: 10px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         color: #fff;
 
-        @include tablet {
-            flex-direction: column;
+        hr {
+            width: 75%;
+            border: 1px solid #292929;
         }
 
         .skills_items {
-            width: 50%;
             padding: 25px;
 
             @include tablet {
                 width: auto;
             }
 
+            .skills_technologies {
+                margin-bottom: 50px;
+            }
+
+            .skills_list {
+                display: flex;
+                justify-content: center;
+            }
+
             h3 {
                 text-align: center;
                 font-family: $fontKanit;
-                font-size: 20px;
+                font-size: 25px;
+                margin-bottom: 25px;
+            }
+
+            h4 {
+                text-align: center;
+                font-family: $fontRobotoMono;
+                font-size: 16px;
                 margin-bottom: 15px;
+                font-weight: 300;
             }
         }
     }
@@ -77,6 +94,7 @@
     height: 20px;
     font-family: $fontKanit;
     transition: background-color 0.3s ease-in-out;
+    justify-content: center;
 
     &:hover {
         background-color: #302f2f;

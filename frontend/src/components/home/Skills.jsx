@@ -70,6 +70,18 @@ function Skills() {
         }, 1500);
     }, []);
 
+    const getTechnologies = (role) => {
+        return skills.map(
+            (skill) =>
+                skill.section === 'technologies' &&
+                skill.role === role && (
+                    <div key={skill._id} className="skills_card">
+                        <SkillsCard title={skill.name} image={skill.image} />
+                    </div>
+                ),
+        );
+    };
+
     return (
         <div className="skills_container" id="skills">
             <div className="skills_title">
@@ -79,31 +91,62 @@ function Skills() {
             <div className="skills_main">
                 <div className="skills_items">
                     <h3>Technologies</h3>
-                    {skills.map(
-                        (skill) =>
-                            skill.section === 'technologies' && (
-                                <div key={skill._id} className="skills_card">
-                                    <SkillsCard
-                                        title={skill.name}
-                                        image={skill.image}
-                                    />
-                                </div>
-                            ),
-                    )}
+                    <div className="skills_technologies">
+                        <h4 className="">Languages</h4>
+                        <div className="skills_list">
+                            {getTechnologies('language')}
+                        </div>
+                    </div>
+                    <div className="skills_technologies">
+                        <h4 className="">Frontend</h4>
+                        <div className="skills_list">
+                            {getTechnologies('frontend')}
+                        </div>
+                    </div>
+                    <div className="skills_technologies">
+                        <h4 className="">Backend</h4>
+                        <div className="skills_list">
+                            {getTechnologies('backend')}
+                        </div>
+                    </div>
+                    <div className="skills_technologies">
+                        <h4 className="">DevOps</h4>
+                        <div className="skills_list">
+                            {getTechnologies('devops')}
+                        </div>
+                    </div>
+                    <div className="skills_technologies">
+                        <h4 className="">Databases</h4>
+                        <div className="skills_list">
+                            {getTechnologies('database')}
+                        </div>
+                    </div>
+                    <div className="skills_technologies">
+                        <h4 className="">Testings</h4>
+                        <div className="skills_list">
+                            {getTechnologies('testing')}
+                        </div>
+                    </div>
                 </div>
+                <hr />
                 <div className="skills_items">
                     <h3>Tools</h3>
-                    {skills.map(
-                        (skill) =>
-                            skill.section === 'tools' && (
-                                <div key={skill._id} className="skills_card">
-                                    <SkillsCard
-                                        title={skill.name}
-                                        image={skill.image}
-                                    />
-                                </div>
-                            ),
-                    )}
+                    <div className="skills_list">
+                        {skills.map(
+                            (skill) =>
+                                skill.section === 'tools' && (
+                                    <div
+                                        key={skill._id}
+                                        className="skills_card"
+                                    >
+                                        <SkillsCard
+                                            title={skill.name}
+                                            image={skill.image}
+                                        />
+                                    </div>
+                                ),
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

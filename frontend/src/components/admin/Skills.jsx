@@ -10,6 +10,8 @@ import Loader from '../layout/Loader';
 export default function Skills() {
     const [loading, setLoading] = useState(true);
     const [errorFetch, setErrorFetch] = useState(false);
+    const [section, setSection] = useState('technologies');
+    const [role, setRole] = useState('');
 
     const fetchSkills = () => {
         fetch(`${import.meta.env.VITE_API_URL}/api/skill/all`, {
@@ -30,9 +32,13 @@ export default function Skills() {
         e.preventDefault();
 
         const formData = new FormData();
+        const section = document.getElementById('section').value;
         formData.append('name', document.getElementById('name').value);
         formData.append('image', document.getElementById('image').files[0]);
-        formData.append('section', document.getElementById('section').value);
+        formData.append('section', section);
+        if (section === 'technologies') {
+            formData.append('role', role);
+        }
 
         fetch(`${import.meta.env.VITE_API_URL}/api/skill/create`, {
             method: 'POST',
@@ -74,6 +80,10 @@ export default function Skills() {
             });
     };
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     return (
         <>
             <ToastContainer />
@@ -83,11 +93,40 @@ export default function Skills() {
                 <form className="skills_choose_section" onSubmit={createSkill}>
                     <div className="skills_select">
                         <label htmlFor="section">// section</label>
-                        <select name="section" id="section">
+                        <select
+                            name="section"
+                            id="section"
+                            onChange={(e) => setSection(e.target.value)}
+                        >
                             <option value="technologies">Technologies</option>
                             <option value="tools">Tools</option>
                         </select>
                     </div>
+                    {section === 'technologies' && (
+                        <div className="skills_select skills_select_role">
+                            <label htmlFor="role">// role</label>
+                            <select
+                                name="role"
+                                id="role"
+                                onChange={(e) => setRole(e.target.value)}
+                            >
+                                {[
+                                    ...new Set(
+                                        skills.map((skill) => skill.role),
+                                    ),
+                                ].map(
+                                    (role) =>
+                                        role !== undefined && (
+                                            <option value={role} key={role}>
+                                                {role &&
+                                                    capitalizeFirstLetter(role)}
+                                            </option>
+                                        ),
+                                )}
+                            </select>
+                        </div>
+                    )}
+
                     <div className="skills_informations">
                         <div className="skills_input">
                             <label htmlFor="text">Name</label>
