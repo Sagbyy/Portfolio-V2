@@ -55,18 +55,18 @@ function Skills() {
                     y: 0,
                     opacity: 1,
                 },
-            )
-                .fromTo(
-                    '.skills_items:nth-child(1) .skills_card',
-                    { scale: 0 },
-                    { scale: 1, stagger: 0.2 },
-                )
-                .fromTo(
-                    '.skills_items:nth-child(2) .skills_card',
-                    { scale: 0 },
-                    { scale: 1, stagger: 0.2 },
-                    '<',
-                );
+            ).fromTo(
+                '.skills_technologies',
+                {
+                    y: -20,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    stagger: 0.2,
+                },
+            );
         }, 1500);
     }, []);
 

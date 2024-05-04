@@ -1,10 +1,10 @@
 import LogoSagby from '../../../assets/images/LogoSagby.png';
-import DisconnectLogo from '../../../assets/images/disconnect_.svg'
+import DisconnectLogo from '../../../assets/images/disconnect_.svg';
 import PropTypes from 'prop-types';
 import ButtonNav from '../layout/ButtonNav';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 Sidebar.propTypes = {
     section: PropTypes.string.isRequired,
@@ -13,7 +13,7 @@ Sidebar.propTypes = {
 
 export default function Sidebar({ section, setSection }) {
     const [showNav, setShowNav] = useState(false);
-    const history = useNavigate()
+    const history = useNavigate();
 
     function navbarButtonResponsive() {
         setShowNav(!showNav);
@@ -26,8 +26,8 @@ export default function Sidebar({ section, setSection }) {
     }
 
     function disconnect() {
-        localStorage.removeItem('token')
-        history('/admin')
+        localStorage.removeItem('token');
+        history('/admin');
     }
 
     return (
@@ -40,7 +40,13 @@ export default function Sidebar({ section, setSection }) {
                 initial={{ left: '-300px' }}
                 animate={{ left: showNav ? 0 : '-300px' }}
             >
-                <img src={LogoSagby} alt="Logo Sagby" className='sidebar_logo_sagby'/>
+                <a href="/">
+                    <img
+                        src={LogoSagby}
+                        alt="Logo Sagby"
+                        className="sidebar_logo_sagby"
+                    />
+                </a>
                 <nav>
                     <ul>
                         <motion.li
@@ -57,7 +63,12 @@ export default function Sidebar({ section, setSection }) {
                         </motion.li>
                     </ul>
                 </nav>
-                <img src={DisconnectLogo} alt="Disconnect" className='sidebar_disconnect' onClick={disconnect} />
+                <img
+                    src={DisconnectLogo}
+                    alt="Disconnect"
+                    className="sidebar_disconnect"
+                    onClick={disconnect}
+                />
             </motion.div>
         </>
     );
