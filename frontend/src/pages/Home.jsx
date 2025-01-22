@@ -145,7 +145,7 @@ function Home() {
                             <div className="home_main">
                                 <div className="top_line"></div>
                                 <h1 className="home_title">Sagby</h1>
-                                <p>Software, web & app developer.</p>
+                                <p>Software Engineer.</p>
                                 <div className="bottom_line"></div>
                             </div>
                             <div className="home_media">

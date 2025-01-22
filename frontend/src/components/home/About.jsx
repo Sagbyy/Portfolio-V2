@@ -4,6 +4,20 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLayoutEffect } from 'react';
 
+function getAge(birthdate) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age;
+}
+
 function About() {
     useLayoutEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -137,23 +151,27 @@ function About() {
                 <div className="about_sectionInfo">
                     <h3>Sagby</h3>
                     <p className="about_location">
-                        <img src={mapSvg} alt="Icone de carte" /> Île-de-france,
-                        France
+                        <img src={mapSvg} alt="Icone de carte" /> Paris,
+                        Île-de-france, France
                     </p>
                     <p className="about_text">
-                        Salah, 19 years old, currently in my second year of
-                        Computer Science at the IUT in Montreuil.
+                        Salah, {getAge('05-30-2004')} years old. I&apos;ve been
+                        passionate about computers and technology ever since I
+                        was a kid, especially through my love for video games.
                         <br />
                         <br />
-                        I&apos;m interested in the world of development in
-                        general, I started by learning web development with
-                        Javascipt and HTML CSS.
+                        This curiosity led me to explore all kinds of areas,
+                        like DevOps, making video games, and working with IoT.
+                        I&apos;ve also had fun taking on CTF challenges, which
+                        helped me learn more about cybersecurity.
                         <br />
-                        <br />I spend my free time perfecting my skills in
-                        programming languages on a self-taught basis. I&apos;ve
-                        been interested in programming since 2020, and I&apos;ll
-                        continue to perfect my skills to improve the quality of
-                        my services and gain as much experience as possible.
+                        <br />
+                        For me, technology isn&apos;t just a job, it&apos;s
+                        something I really love. It&apos;s how I express my
+                        creativity and try out new ideas. Whether I&apos;m
+                        coding, testing new tools, or building small projects, I
+                        enjoy every moment. It&apos;s not just a career,
+                        it&apos;s a part of who I am.
                     </p>
                 </div>
             </div>
