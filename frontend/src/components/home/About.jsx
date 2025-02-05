@@ -155,7 +155,7 @@ function About() {
                         Île-de-france, France
                     </p>
                     <p className="about_text">
-                        Salah, {getAge('05-30-2004')} years old. I&apos;ve been
+                        Salah, {getAge('2004/05/30')} years old. I&apos;ve been
                         passionate about computers and technology ever since I
                         was a kid, especially through my love for video games.
                         <br />
